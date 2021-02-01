@@ -1,8 +1,16 @@
 import turtle
 from random import randint
+gr = "green"
+rd = "red"
+ble = "blue"
+yl = "yellow"
 
-tBleu= turtle.Turtle()
-tJaune = turtle.Turtle()
+def dessinCercle(x,y,color):
+    turtle.goto(x,y)
+    turtle.pen(pencolor=color, fillcolor=color)
+    turtle.begin_fill()
+    turtle.circle(5)
+    turtle.end_fill()
 
 turtle.bgcolor("aqua")
 turtle.title("Plateau de la coupe")
@@ -211,163 +219,36 @@ turtle.end_fill()
 
 ########################################################################################
 
-#dessiner les gobis
-#t.pen(pencolor="purple", fillcolor="orange")
-#t.begin_fill()
-#t.circle(90)
-#t.end_fill()
-
-#Zone Gauche
-turtle.goto(-240,120)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-211,97)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-211,-17)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-240,-40)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-#Zone Droite
-turtle.goto(240,120)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(211,97)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(211,-17)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(240,-40)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-#Large
-turtle.goto(-166,180)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-108.8,120)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(108.8,120)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(166,180)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-80,40)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(80,40)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-48,-40)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(48,-40)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-#Gobi Rochers
-turtle.goto(-99,-191)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-87,-131)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-33,-131)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(-21,-191)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(21,-191)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(33,-131)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(87,-131)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.goto(99,-191)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.circle(5)
-turtle.end_fill()
-
-turtle.home()
-
+#Gobi sideblue base
+dessinCercle(-240,120,rd)
+dessinCercle(-211,97,gr)
+dessinCercle(-211,-17,rd)
+dessinCercle(-240,-40,gr)
+#Gobi sideyellow base
+dessinCercle(240,120,gr)
+dessinCercle(211,97,rd)
+dessinCercle(211,-17,gr)
+dessinCercle(240,-40,rd)
+#Gobi sideblue large
+dessinCercle(-166,180,rd)
+dessinCercle(-108.8,120,gr)
+dessinCercle(-80,40,rd)
+dessinCercle(-48,-40,gr)
+#Gobi sideyellow large
+dessinCercle(166,180,gr)
+dessinCercle(108.8,120,rd)
+dessinCercle(80,40,gr)
+dessinCercle(48,-40,rd)
+#Gobi Rochers sideyellow
+dessinCercle(-99,-191,rd)
+dessinCercle(-87,-131,gr)
+dessinCercle(-33,-131,rd)
+dessinCercle(-21,-191,gr)
+#Gobi Rochers sideblue
+dessinCercle(21,-191,rd)
+dessinCercle(33,-131,gr)
+dessinCercle(87,-131,rd)
+dessinCercle(99,-191,gr)
 ###############################################################
-
-
+turtle.home()
 turtle.mainloop()
