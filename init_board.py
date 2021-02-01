@@ -4,6 +4,7 @@ gr = "green"
 rd = "red"
 ble = "blue"
 yl = "yellow"
+blc = "black"
 
 
 def dessinCercle(x, y, color):
@@ -29,96 +30,50 @@ def dessin_Zone_Couleur(x, y, long, large, color):
     turtle.end_fill()
 
 
+def dessin_Zone(x, y, long, large, color):
+    turtle.goto(x, y)
+    turtle.pen(pencolor=color)
+    turtle.pendown()
+    turtle.forward(long)
+    turtle.left(90)
+    turtle.forward(large)
+    turtle.left(90)
+    turtle.forward(long)
+    turtle.left(90)
+    turtle.forward(large)
+    turtle.left(90)
+    turtle.penup()
+    turtle.pen(pencolor="black")
+
+
 turtle.bgcolor("aqua")
 turtle.title("Plateau de la coupe")
 turtle.speed(100)
 turtle.shapesize(0.1, 0.1, 0.1)
-
+turtle.penup()
+# turtle.mainloop()
 ###############################################
 
 # dessiner le cadre
-turtle.penup()
-turtle.goto(-300, 200)
-turtle.pendown()
-turtle.goto(300, 200)
-turtle.goto(300, -200)
-turtle.goto(-300, -200)
-turtle.goto(-300, 200)
-turtle.penup()
-
+dessin_Zone(-300, -200, 600, 400, blc)
 # dessiner la zone de jeu1
-turtle.goto(-300, 100)
-turtle.pen(pencolor="blue")
-turtle.pendown()
-turtle.goto(-220, 100)
-turtle.goto(-220, -20)
-turtle.goto(-300, -20)
-turtle.pen(pencolor="black")
-turtle.penup()
-
+dessin_Zone(-300, -14, 80, 108, ble)
 # dessiner la zone de jeu2
-turtle.goto(300, 100)
-turtle.pen(pencolor="yellow")
-turtle.pendown()
-turtle.goto(220, 100)
-turtle.goto(220, -20)
-turtle.goto(300, -20)
-turtle.pen(pencolor="black")
-turtle.penup()
+dessin_Zone(220, -14, 80, 108, yl)
+# dessiner la zone de jeu jaune bas
+dessin_Zone(-70, -200, 20, 60, yl)
+# dessiner la zone de jeu bleu bas
+dessin_Zone(50, -200, 20, 60, ble)
 
-turtle.goto(-70, -200)
-turtle.pen(pencolor="yellow")
-turtle.pendown()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.pen(pencolor="black")
-turtle.penup()
-
-turtle.goto(50, -200)
-turtle.pen(pencolor="blue")
-turtle.pendown()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.pen(pencolor="black")
-turtle.penup()
-
-#############################################################
+###############################################
 
 # dessiner les rochers
-turtle.goto(-122.2, -200)
-turtle.pendown()
-turtle.goto(-122.2, -170)
-turtle.goto(-117.8, -170)
-turtle.goto(-117.8, -200)
-turtle.penup()
+dessin_Zone(-122.2, -200, 4.4, 30, blc)
+dessin_Zone(117.8, -200, 4.4, 30, blc)
+dessin_Zone(-2.2, -200, 4.4, 60, blc)
 
-turtle.goto(117.8, -200)
-turtle.pendown()
-turtle.goto(117.8, -170)
-turtle.goto(122.2, -170)
-turtle.goto(122.2, -200)
-turtle.penup()
+###############################################
 
-turtle.goto(-2.2, -200)
-turtle.pendown()
-turtle.goto(-2.2, -140)
-turtle.goto(2.2, -140)
-turtle.goto(2.2, -200)
-turtle.penup()
-
-######################################################
 # Zone verte blueside
 dessin_Zone_Couleur(-300, 94, 80, 6, gr)
 # Zone rouge blueside
@@ -136,7 +91,8 @@ dessin_Zone_Couleur(-50, -200, 20, 60, rd)
 dessin_Zone_Couleur(30, -200, 20, 60, gr)
 # Zone rouge yellowbotside
 dessin_Zone_Couleur(70, -200, 20, 60, rd)
-###############################################################################
+
+###############################################
 
 # Gobi sideblue base
 dessinCercle(-240, 120, rd)
