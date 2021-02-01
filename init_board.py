@@ -14,6 +14,21 @@ def dessinCercle(x, y, color):
     turtle.end_fill()
 
 
+def dessin_Zone_Couleur(x, y, long, large, color):
+    turtle.goto(x, y)
+    turtle.pen(pencolor=color, fillcolor=color)
+    turtle.begin_fill()
+    turtle.forward(long)
+    turtle.left(90)
+    turtle.forward(large)
+    turtle.left(90)
+    turtle.forward(long)
+    turtle.left(90)
+    turtle.forward(large)
+    turtle.left(90)
+    turtle.end_fill()
+
+
 turtle.bgcolor("aqua")
 turtle.title("Plateau de la coupe")
 turtle.speed(100)
@@ -104,121 +119,23 @@ turtle.goto(2.2, -200)
 turtle.penup()
 
 ######################################################
-
 # Zone verte blueside
-turtle.goto(-300, 94)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.forward(80)
-turtle.left(90)
-turtle.forward(6)
-turtle.left(90)
-turtle.forward(80)
-turtle.left(90)
-turtle.forward(6)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(-300, 94, 80, 6, gr)
 # Zone rouge blueside
-turtle.goto(-300, -14)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.forward(80)
-turtle.right(90)
-turtle.forward(6)
-turtle.right(90)
-turtle.forward(80)
-turtle.right(90)
-turtle.forward(6)
-turtle.right(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(-300, -20, 80, 6, rd)
 # Zone rouge yellowside
-turtle.goto(220, 94)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.forward(80)
-turtle.left(90)
-turtle.forward(6)
-turtle.left(90)
-turtle.forward(80)
-turtle.left(90)
-turtle.forward(6)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(220, 94, 80, 6, rd)
 # Zone verte yellowside
-turtle.goto(220, -14)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.forward(80)
-turtle.right(90)
-turtle.forward(6)
-turtle.right(90)
-turtle.forward(80)
-turtle.right(90)
-turtle.forward(6)
-turtle.right(90)
-turtle.end_fill()
-
-##############################################################################
+dessin_Zone_Couleur(220, -20, 80, 6, gr)
 
 # Zone verte bluebotside
-turtle.goto(-90, -200)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(-90, -200, 20, 60, gr)
 # Zone rouge bluebotside
-turtle.goto(-50, -200)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(-50, -200, 20, 60, rd)
 # Zone verte yellowbotside
-turtle.goto(30, -200)
-turtle.pen(pencolor="green", fillcolor="green")
-turtle.begin_fill()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(30, -200, 20, 60, gr)
 # Zone rouge yellowbotside
-turtle.goto(70, -200)
-turtle.pen(pencolor="red", fillcolor="red")
-turtle.begin_fill()
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.forward(20)
-turtle.left(90)
-turtle.forward(60)
-turtle.left(90)
-turtle.end_fill()
-
+dessin_Zone_Couleur(70, -200, 20, 60, rd)
 ###############################################################################
 
 # Gobi sideblue base
@@ -251,6 +168,8 @@ dessinCercle(21, -191, rd)
 dessinCercle(33, -131, gr)
 dessinCercle(87, -131, rd)
 dessinCercle(99, -191, gr)
+
 ###############################################################
+
 turtle.home()
 turtle.mainloop()
