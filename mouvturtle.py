@@ -10,10 +10,11 @@ turtle.title("Simulation de la coupe")
 
 tBleu = turtle.Turtle()
 tBleu.shape("square")
+tBleu.shapesize(2.2, 2.2, 2.2)
 
 # Place le curseur tBleu en départ gauche
 tBleu.penup()
-tBleu.goto(-240, 40)
+tBleu.goto(-250, 40)
 tBleu.fillcolor("blue")
 
 turtle.mainloop()

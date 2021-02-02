@@ -11,7 +11,7 @@ def dessinCercle(x, y, color):
     turtle.goto(x, y)
     turtle.pen(pencolor=color, fillcolor=color)
     turtle.begin_fill()
-    turtle.circle(5)
+    turtle.circle(6.2)
     turtle.end_fill()
 
 
