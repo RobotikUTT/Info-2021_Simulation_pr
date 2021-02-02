@@ -2,47 +2,52 @@ import turtle
 from random import randint
 import init_board
 
-tBleu = turtle.Turtle()
+tBlue = turtle.Turtle()
 pince1 = turtle.Turtle()
 pince2 = turtle.Turtle()
 lft = "left"
 rgh = "right"
-xTB = 0
-yTB = 0
-vtBlue = tBlue.position()
+initX = -250
+initY = 40
+
+###############################################################################
 
 
 def avancer(distance):
     for i in range(distance):
-        tBleu.forward(1)
+        tBlue.forward(1)
         pince1.forward(1)
         pince2.forward(1)
 
 
 def rotate(sens):
     if sens == "left":
-        tBleu.left(90)
+        tBlue.left(90)
         pince1.goto(xTB - 11.694, yTB + 16.688)
         pince2.goto(xTB + 11.694, yTB + 16.688)
     elif sens == "right":
-        tBleu.left(90)
+        tBlue.left(90)
         pince1.goto(xTB + 11.694, yTB - 16.688)
         pince2.goto(xTB - 11.694, yTB - 16.688)
     else:
-        tBleu.left(45)
-        tBleu.right(90)
-        tBleu.left(45)
+        tBlue.left(45)
+        tBlue.right(90)
+        tBlue.left(45)
+
+###############################################################################
+# Initialise les tBlue et ses pinces
 
 
-xTB = -250  # Set les coordonnées initiales du robot.
-yTB = 40    # Set les coordonnées initiales du robot.
+tBlue.shape("square")
+tBlue.shapesize(2.2, 2.2, 2.2)
+tBlue.penup()
+tBlue.goto(initX, initY)
+tBlue.fillcolor("blue")
+vtBlue = tBlue.position()
+xTB = vtBlue[0]  # Set les coordonnées du robot.
+yTB = vtBlue[1]   # Set les coordonnées du robot.
 
-tBleu.shape("square")
-tBleu.shapesize(2.2, 2.2, 2.2)
-tBleu.penup()
-tBleu.goto(xTB, yTB)
-tBleu.fillcolor("blue")
-
+""""
 pince1.shapesize(1, 1, 1)
 pince1.penup()
 pince1.fillcolor("black")
@@ -54,9 +59,12 @@ pince2.penup()
 pince2.fillcolor("yellow")
 pince2.shape("circle")
 pince2.goto(xTB + 16.688, yTB - 11.694)
+""""
+###############################################################################
 
-avancer(100)
-rotate(lft)
-avancer(100)
+
+#avancer(100)
+#rotate(lft)
+#avancer(100)
 
 turtle.mainloop()
