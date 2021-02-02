@@ -2,27 +2,61 @@ import turtle
 from random import randint
 import init_board
 
+tBleu = turtle.Turtle()
 pince1 = turtle.Turtle()
+pince2 = turtle.Turtle()
+lft = "left"
+rgh = "right"
+xTB = 0
+yTB = 0
+vtBlue = tBlue.position()
+
+
+def avancer(distance):
+    for i in range(distance):
+        tBleu.forward(1)
+        pince1.forward(1)
+        pince2.forward(1)
+
+
+def rotate(sens):
+    if sens == "left":
+        tBleu.left(90)
+        pince1.goto(xTB - 11.694, yTB + 16.688)
+        pince2.goto(xTB + 11.694, yTB + 16.688)
+    elif sens == "right":
+        tBleu.left(90)
+        pince1.goto(xTB + 11.694, yTB - 16.688)
+        pince2.goto(xTB - 11.694, yTB - 16.688)
+    else:
+        tBleu.left(45)
+        tBleu.right(90)
+        tBleu.left(45)
+
+
+xTB = -250  # Set les coordonnées initiales du robot.
+yTB = 40    # Set les coordonnées initiales du robot.
+
+tBleu.shape("square")
+tBleu.shapesize(2.2, 2.2, 2.2)
+tBleu.penup()
+tBleu.goto(xTB, yTB)
+tBleu.fillcolor("blue")
+
 pince1.shapesize(1, 1, 1)
 pince1.penup()
 pince1.fillcolor("black")
 pince1.shape("circle")
-pince1.goto(-233.312, 51.694)
+pince1.goto(xTB + 16.688, yTB + 11.694)
 
-pince2 = turtle.Turtle()
 pince2.shapesize(1, 1, 1)
 pince2.penup()
 pince2.fillcolor("yellow")
 pince2.shape("circle")
-pince2.goto(-233.312, 28.306)
+pince2.goto(xTB + 16.688, yTB - 11.694)
 
-
-tBleu = turtle.Turtle()
-tBleu.shape("square")
-tBleu.shapesize(2.2, 2.2, 2.2)
-tBleu.penup()
-tBleu.goto(-250, 40)
-tBleu.fillcolor("blue")
-
+avancer(100)
+rotate(lft)
+avancer(100)
 
 turtle.mainloop()
