@@ -1,6 +1,5 @@
-import turtle
 from random import randint
-
+import turtle
 # Crée le plateau de jeu
 import init_board
 init_board.drawboard()
