@@ -14,10 +14,6 @@ LFT = "left"
 RGH = "right"
 ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
-
-tBlue = turtle.Turtle()     # Crée le robot
-pince1 = turtle.Turtle()    # Crée la pince1
-pince2 = turtle.Turtle()    # Crée la pince2
 ###############################################################################
 
 
@@ -109,6 +105,9 @@ def init_robot():
 # Initialise les tBlue et ses pinces
 
 
+tBlue = turtle.Turtle()     # Crée le robot
+pince1 = turtle.Turtle()    # Crée la pince1
+pince2 = turtle.Turtle()    # Crée la pince2
 if __name__ == '__main__':
     init_robot()
     turtle.mainloop()
