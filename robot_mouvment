@@ -1,70 +1,108 @@
 import turtle
 from random import randint
-import init_board
+import math
 
-tBlue = turtle.Turtle()
-pince1 = turtle.Turtle()
-pince2 = turtle.Turtle()
-lft = "left"
-rgh = "right"
-initX = -250
-initY = 40
-
+tBlue = turtle.Turtle()     # Crée le robot
+pince1 = turtle.Turtle()    # Crée la pince1
+pince2 = turtle.Turtle()    # Crée la pince2
+LFT = "left"
+RGH = "right"
+ENTRAX = 117.95     # En mm
+ECHELLE = 1/5
+VALEUR_ROTATION_P1P2 = 30.0
 ###############################################################################
 
 
+def calculer_pos_pinces():
+    xTB = tBlue.xcor()
+    yTB = tBlue.ycor()
+    alphTB = tBlue.heading()
+    if (alphTB == 0) or (alphTB == 360):
+        v = turtle.Vec2D((ENTRAX*ECHELLE), 0)
+    elif alphTB == 90:
+        v = turtle.Vec2D(0, (ENTRAX*ECHELLE))
+    elif alphTB == 180:
+        v = turtle.Vec2D(-(ENTRAX*ECHELLE), 0)
+    elif alphTB == 270:
+        v = turtle.Vec2D(0, -(ENTRAX*ECHELLE))
+    else:
+        if (alphTB > 0 and alphTB < 90):
+            m = math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            n = math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            v = turtle.Vec2D(m, n)
+        elif (alphTB > 90 and alphTB < 180):
+            alphTB = 180 - alphTB
+            m = -math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            n = math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            v = turtle.Vec2D(m, n)
+        elif (alphTB > 180 and alphTB < 270):
+            alphTB = alphTB - 180
+            m = -math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            n = -math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            v = turtle.Vec2D(m, n)
+        elif (alphTB > 270 and alphTB < 360):
+            alphTB = 360 - alphTB
+            m = math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            n = -math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
+            v = turtle.Vec2D(m, n)
+    p1 = v
+    p2 = v
+    p1 = p1.rotate(VALEUR_ROTATION_P1P2)
+    p2 = p2.rotate(-VALEUR_ROTATION_P1P2)
+    xp1 = p1[0] + xTB
+    yp1 = p1[1] + yTB
+    xp2 = p2[0] + xTB
+    yp2 = p2[1] + yTB
+    pince1.penup()
+    pince1.goto(xp1, yp1)
+    pince2.penup()
+    pince2.goto(xp2, yp2)
+
+
 def avancer(distance):
+    distance = round(distance*ECHELLE)
     for i in range(distance):
         tBlue.forward(1)
-        pince1.forward(1)
-        pince2.forward(1)
+        calculer_pos_pinces()
 
 
-def rotate(sens):
+def rotate(sens, valeur):
+    valeur = round(valeur*ECHELLE)
     if sens == "left":
-        tBlue.left(90)
-        pince1.goto(xTB - 11.694, yTB + 16.688)
-        pince2.goto(xTB + 11.694, yTB + 16.688)
+        for i in range(valeur):
+            tBlue.left(1)
+            calculer_pos_pinces()
     elif sens == "right":
-        tBlue.left(90)
-        pince1.goto(xTB + 11.694, yTB - 16.688)
-        pince2.goto(xTB - 11.694, yTB - 16.688)
-    else:
-        tBlue.left(45)
-        tBlue.right(90)
-        tBlue.left(45)
+        for i in range(valeur):
+            tBlue.right(1)
+            calculer_pos_pinces()
 
 ###############################################################################
 # Initialise les tBlue et ses pinces
 
 
-tBlue.shape("square")
-tBlue.shapesize(2.2, 2.2, 2.2)
-tBlue.penup()
-tBlue.goto(initX, initY)
-tBlue.fillcolor("blue")
-vtBlue = tBlue.position()
-xTB = vtBlue[0]  # Set les coordonnées du robot.
-yTB = vtBlue[1]   # Set les coordonnées du robot.
+if __name__ == '__main__':
 
-""""
-pince1.shapesize(1, 1, 1)
-pince1.penup()
-pince1.fillcolor("black")
-pince1.shape("circle")
-pince1.goto(xTB + 16.688, yTB + 11.694)
+    tBlue.shape("square")
+    tBlue.shapesize(2.2, 2.2, 2.2)
+    tBlue.penup()
+    tBlue.fillcolor("blue")
 
-pince2.shapesize(1, 1, 1)
-pince2.penup()
-pince2.fillcolor("yellow")
-pince2.shape("circle")
-pince2.goto(xTB + 16.688, yTB - 11.694)
-""""
-###############################################################################
+    pince1.shapesize(1, 1, 1)
+    pince1.penup()
+    pince1.fillcolor("white")
+    pince1.shape("circle")
 
+    pince2.shapesize(1, 1, 1)
+    pince2.penup()
+    pince2.fillcolor("white")
+    pince2.shape("circle")
 
-#avancer(100)
-#rotate(lft)
-#avancer(100)
+    tBlue.goto(-250, 40)
+    calculer_pos_pinces()
+    avancer(100*ECHELLE)
+    rotate(LFT, 30)
+    avancer(500*ECHELLE)
+    rotate(RGH, 90)
 
-turtle.mainloop()
+    turtle.mainloop()
