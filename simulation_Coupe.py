@@ -1,19 +1,12 @@
 from random import randint
 import turtle
-# Crée le plateau de jeu
+from constantes import LISTEGOBI
 import init_board
+import robot_mouvment
+
+# Crée le plateau de jeu
 init_board.drawboard()
-
-# Nomme la fenêtre
-turtle.title("Simulation de la coupe")
-
-tBleu = turtle.Turtle()
-tBleu.shape("square")
-tBleu.shapesize(2.2, 2.2, 2.2)
-
-# Place le curseur tBleu en départ gauche
-tBleu.penup()
-tBleu.goto(-250, 40)
-tBleu.fillcolor("blue")
+# Initialise le robot et les pinces
+robot_mouvment.init_robot()
 
 turtle.mainloop()

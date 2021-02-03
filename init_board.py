@@ -1,44 +1,26 @@
 import turtle
 from random import randint
+from constantes import LISTEGOBI
+
+###############################################################################
 GR = "green"
 RD = "red"
 BLE = "blue"
 YL = "yellow"
 BLC = "black"
 ECHELLE = 1/5
-LISTEGOBI = [
-    (-1200*ECHELLE, 600*ECHELLE, RD, "QB1"),
-    (-1055*ECHELLE, 485*ECHELLE, GR, "QB2"),
-    (-1055*ECHELLE, -85*ECHELLE, RD, "QB3"),
-    (-1200*ECHELLE, -200*ECHELLE, GR, "QB4"),
-    (1200*ECHELLE, 600*ECHELLE, GR, "QJ1"),
-    (1055*ECHELLE, 485*ECHELLE, RD, "QJ2"),
-    (1055*ECHELLE, -85*ECHELLE, GR, "QJ3"),
-    (1200*ECHELLE, -200*ECHELLE, RD, "QJ4"),
-    (-830*ECHELLE, 900*ECHELLE, RD, "LB1"),
-    (-544*ECHELLE, 600*ECHELLE, GR, "LB2"),
-    (-400*ECHELLE, 200*ECHELLE, RD, "LB3"),
-    (-230*ECHELLE, -200*ECHELLE, GR, "LB4"),
-    (830*ECHELLE, 900*ECHELLE, GR, "LJ1"),
-    (544*ECHELLE, 600*ECHELLE, RD, "LJ2"),
-    (400*ECHELLE, 200*ECHELLE, GR, "LJ3"),
-    (230*ECHELLE, -200*ECHELLE, RD, "LJ4"),
-    (-495*ECHELLE, -955*ECHELLE, RD, "CB1"),
-    (-435*ECHELLE, -655*ECHELLE, GR, "CB2"),
-    (-165*ECHELLE, -655*ECHELLE, RD, "CB3"),
-    (-105*ECHELLE, -955*ECHELLE, GR, "CB4"),
-    (105*ECHELLE, -955*ECHELLE, RD, "CJ1"),
-    (165*ECHELLE, -655*ECHELLE, GR, "CJ2"),
-    (435*ECHELLE, -655*ECHELLE, RD, "CJ3"),
-    (495*ECHELLE, -955*ECHELLE, GR, "CJ4"),
-]
-# Donc la liste va de 0 à 23, avec 0 à 3 dans les sous toples
+LFT = "left"
+RGH = "right"
+ENTRAX = 117.95     # En mm
+VALEUR_ROTATION_P1P2 = 30.0
 ###############################################################################
 
 
 def dessin_Gobies_init():
     for i in range(0, 24):
-        dessin_Cercle(LISTEGOBI[i][0], LISTEGOBI[i][1], LISTEGOBI[i][2])
+        dessin_Cercle(
+            LISTEGOBI[i][0]*ECHELLE, LISTEGOBI[i][1]*ECHELLE, LISTEGOBI[i][2]
+        )
 
 
 def dessin_Cercle(x, y, color):
@@ -103,6 +85,7 @@ def drawboard():
     dessin_Zone(-2.2, -200, 4.4, 60, BLC)
 
     dessin_Gobies_init()
+    turtle.title("Simulation de la coupe")
     turtle.home()
 
 
