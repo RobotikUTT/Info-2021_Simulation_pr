@@ -2,6 +2,7 @@ import turtle
 from random import randint
 import math
 from constantes import LISTEGOBI
+import init_board
 
 ###############################################################################
 GR = "green"
@@ -100,7 +101,45 @@ def init_robot():
 
     tBlue.goto(-250, 40)
     calculer_pos_pinces()
+    print(pince1.position())
+    print(pince2.position())
 
+
+def prise_gobi():
+    if STATE_PINCE1:
+        prise = False
+        compt = 0
+        while not prise and compt <= 24:
+            if (
+                LISTEGOBI[compt][0] == pince1.xcor() and
+                LISTEGOBI[compt][1] == pince1.ycor()
+            ):
+                prise = True
+            else:
+                compt = compt + 1
+        if prise:
+            pince1.fillcolor(LISTEGOBI[compt][2])
+            init_board.dessin_Cercle(
+                LISTEGOBI[compt][0], LISTEGOBI[compt][1], "aqua"
+            )
+            STATE_PINCE1 = False
+    elif STATE_PINCE2:
+        prise = False
+        compt = 0
+        while not prise and compt <= 24:
+            if (
+                LISTEGOBI[compt][0] == pince2.xcor() and
+                LISTEGOBI[compt][1] == pince2.ycor()
+            ):
+                prise = True
+            else:
+                compt = compt + 1
+        if prise:
+            pince2.fillcolor(LISTEGOBI[compt][2])
+            init_board.dessin_Cercle(
+                LISTEGOBI[compt][0], LISTEGOBI[compt][1], "aqua"
+            )
+            STATE_PINCE2 = False
 ###############################################################################
 # Initialise les tBlue et ses pinces
 
@@ -108,6 +147,8 @@ def init_robot():
 tBlue = turtle.Turtle()     # Crée le robot
 pince1 = turtle.Turtle()    # Crée la pince1
 pince2 = turtle.Turtle()    # Crée la pince2
+STATE_PINCE1 = True
+STATE_PINCE2 = True         # Vrai signifie que la pince est libre
 if __name__ == '__main__':
     init_robot()
     turtle.mainloop()
