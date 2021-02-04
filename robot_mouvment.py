@@ -15,6 +15,8 @@ LFT = "left"
 RGH = "right"
 ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
+STATE_PINCE1 = True
+STATE_PINCE2 = True         # Vrai signifie que la pince est libre
 ###############################################################################
 
 
@@ -69,6 +71,7 @@ def avancer(distance):
     for i in range(distance):
         tBlue.forward(1)
         calculer_pos_pinces()
+        prise_gobi(STATE_PINCE1, STATE_PINCE2)
 
 
 def rotate(sens, valeur):
@@ -77,10 +80,12 @@ def rotate(sens, valeur):
         for i in range(valeur):
             tBlue.left(1)
             calculer_pos_pinces()
+            prise_gobi(STATE_PINCE1, STATE_PINCE2)
     elif sens == "right":
         for i in range(valeur):
             tBlue.right(1)
             calculer_pos_pinces()
+            prise_gobi(STATE_PINCE1, STATE_PINCE2)
 
 
 def init_robot():
@@ -105,15 +110,19 @@ def init_robot():
     print(pince2.position())
 
 
-def prise_gobi():
-    if STATE_PINCE1:
+def prise_gobi(ETATP1, ETATP2):
+    if ETATP1:
         prise = False
         compt = 0
         while not prise and compt <= 24:
             if (
-                LISTEGOBI[compt][0] == pince1.xcor() and
-                LISTEGOBI[compt][1] == pince1.ycor()
+                pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
+                <= 5
             ):
+            #if (
+                #LISTEGOBI[compt][0] == pince1.xcor() and
+                #LISTEGOBI[compt][1] == pince1.ycor()
+            #):
                 prise = True
             else:
                 compt = compt + 1
@@ -123,7 +132,7 @@ def prise_gobi():
                 LISTEGOBI[compt][0], LISTEGOBI[compt][1], "aqua"
             )
             STATE_PINCE1 = False
-    elif STATE_PINCE2:
+    if ETATP2:
         prise = False
         compt = 0
         while not prise and compt <= 24:
@@ -147,8 +156,7 @@ def prise_gobi():
 tBlue = turtle.Turtle()     # Crée le robot
 pince1 = turtle.Turtle()    # Crée la pince1
 pince2 = turtle.Turtle()    # Crée la pince2
-STATE_PINCE1 = True
-STATE_PINCE2 = True         # Vrai signifie que la pince est libre
+
 if __name__ == '__main__':
     init_robot()
     turtle.mainloop()

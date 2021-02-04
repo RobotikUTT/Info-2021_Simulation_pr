@@ -4,11 +4,27 @@ from constantes import LISTEGOBI
 import init_board
 import robot_mouvment
 
+###############################################################################
+GR = "green"
+RD = "red"
+BLE = "blue"
+YL = "yellow"
+BLC = "black"
+ECHELLE = 1/5
+LFT = "left"
+RGH = "right"
+ENTRAX = 117.95     # En mm
+VALEUR_ROTATION_P1P2 = 30.0
+###############################################################################
+
 # Crée le plateau de jeu
 init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
 
-
+robot_mouvment.rotate(RGH, 90)
+robot_mouvment.avancer(10)
+robot_mouvment.rotate(LFT, 90)
+robot_mouvment.avancer(150)
 
 turtle.mainloop()

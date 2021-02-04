@@ -2,6 +2,7 @@ import turtle
 import math
 from random import randint
 
+###############################################################################
 GR = "green"
 RD = "red"
 BLE = "blue"
@@ -12,6 +13,7 @@ LFT = "left"
 RGH = "right"
 ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
+###############################################################################
 
 LISTEGOBI = [
     (-1200, 600, RD, "QB1"),
