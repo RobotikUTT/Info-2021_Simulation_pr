@@ -115,14 +115,14 @@ def prise_gobi(ETATP1, ETATP2):
         prise = False
         compt = 0
         while not prise and compt <= 24:
-            if (
-                pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
-                <= 5
-            ):
             #if (
-                #LISTEGOBI[compt][0] == pince1.xcor() and
-                #LISTEGOBI[compt][1] == pince1.ycor()
+                #pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
+                #<= 5
             #):
+            if (
+                LISTEGOBI[compt][0] == pince1.xcor() and
+                LISTEGOBI[compt][1] == pince1.ycor()
+            ):
                 prise = True
             else:
                 compt = compt + 1
