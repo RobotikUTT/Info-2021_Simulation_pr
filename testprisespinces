@@ -4,11 +4,11 @@ from constantes import LISTEGOBI
 import init_board
 
 ###############################################################################
-GR = "green"
-RD = "red"
-BLE = "blue"
-YL = "yellow"
-BLC = "black"
+GR = (0, 255, 0)                   # Vert
+RD = (255, 0, 0)                   # Rouge
+BLE = (0, 0, 255)                  # Bleu
+YL = (0, 127.5, 127.5)             # Jaune
+BLC = (0, 0, 0)                    # Noir
 ECHELLE = 1/5
 LFT = "left"
 RGH = "right"

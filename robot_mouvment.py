@@ -1,20 +1,13 @@
 import turtle
 from random import randint
 import math
-from constantes import LISTEGOBI
+from constantes import (
+    LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
+    VALEUR_ROTATION_P1P2
+)
 import init_board
 
 ###############################################################################
-GR = "green"
-RD = "red"
-BLE = "blue"
-YL = "yellow"
-BLC = "black"
-ECHELLE = 1/5
-LFT = "left"
-RGH = "right"
-ENTRAX = 117.95     # En mm
-VALEUR_ROTATION_P1P2 = 30.0
 STATE_PINCE1 = True
 STATE_PINCE2 = True         # Vrai signifie que la pince est libre
 ###############################################################################
@@ -92,7 +85,7 @@ def init_robot():
     tBlue.shape("square")
     tBlue.shapesize(2.2, 2.2, 2.2)
     tBlue.penup()
-    tBlue.fillcolor("blue")
+    tBlue.fillcolor(BOTCOLOR)
 
     pince1.shapesize(1, 1, 1)
     pince1.penup()
@@ -127,7 +120,7 @@ def prise_gobi(ETATP1, ETATP2):
             pince1.fillcolor(LISTEGOBI[compt][2])
             init_board.dessin_Cercle(
                 LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
-                "aqua"
+                AQA
             )
             STATE_PINCE1 = False
     if ETATP2:
@@ -146,7 +139,7 @@ def prise_gobi(ETATP1, ETATP2):
             pince2.fillcolor(LISTEGOBI[compt][2])
             init_board.dessin_Cercle(
                 LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
-                "aqua"
+                AQA
             )
             STATE_PINCE2 = False
 ###############################################################################

@@ -1,19 +1,9 @@
 import turtle
 from random import randint
-from constantes import LISTEGOBI
-
-###############################################################################
-GR = "green"
-RD = "red"
-BLE = "blue"
-YL = "yellow"
-BLC = "black"
-ECHELLE = 1/5
-LFT = "left"
-RGH = "right"
-ENTRAX = 117.95     # En mm
-VALEUR_ROTATION_P1P2 = 30.0
-###############################################################################
+from constantes import (
+    LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
+    VALEUR_ROTATION_P1P2
+)
 
 
 def dessin_Gobies_init():
@@ -28,7 +18,7 @@ def dessin_Cercle(x, y, color):
     turtle.goto(x, y)
     turtle.pen(pencolor=color, fillcolor=color)
     turtle.begin_fill()
-    turtle.circle(6.2)
+    turtle.circle((75/2)*ECHELLE)
     turtle.end_fill()
 
 
@@ -64,13 +54,13 @@ def dessin_Zone(x, y, long, large, color):
 
 
 def drawboard():
-    turtle.bgcolor("aqua")
+    turtle.colormode(0xFF)
     turtle.speed(100)
     turtle.shapesize(0.1, 0.1, 0.1)
     turtle.penup()
 
     # dessiner le cadre
-    dessin_Zone(-300, -200, 600, 400, BLC)
+    dessin_Zone_Couleur(-300, -200, 600, 400, AQA)
     # dessiner la zone de jeu1
     dessin_Zone(-300, -14, 80, 108, BLE)
     # dessiner la zone de jeu2
@@ -111,7 +101,7 @@ def drawboard():
     )
 
     # *ECHELLE
-
+    dessin_Zone(-300, -200, 600, 400, BLC)  # Dessine le contour noir
     dessin_Gobies_init()
     turtle.title("Simulation de la coupe")
     turtle.home()

@@ -1,18 +1,17 @@
-import turtle
-import math
-from random import randint
-
 ###############################################################################
-GR = "green"
-RD = "red"
-BLE = "blue"
-YL = "yellow"
-BLC = "black"
+GR = (0, 166, 0)                   # Vert
+RD = (229, 0, 0)                   # Rouge
+BLE = (0, 76, 229)                  # Bleu
+YL = (255, 191, 0)             # Jaune
+BLC = (0, 0, 0)                    # Noir
+AQA = (79, 205, 251)
+BOTCOLOR = (196, 196, 196)
 ECHELLE = 1/5
 LFT = "left"
 RGH = "right"
 ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
+
 ###############################################################################
 
 LISTEGOBI = [
