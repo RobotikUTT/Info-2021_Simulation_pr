@@ -16,6 +16,17 @@ ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
 ###############################################################################
 
+#if (
+    #pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
+    #<= 100
+#):
+#if (
+    #(LISTEGOBI[compt][0]*ECHELLE == pince1.xcor()) and
+    #(LISTEGOBI[compt][1]*ECHELLE == pince1.ycor())
+#):
+
+###############################################################################
+
 
 def avancer(distance):
     distance = round(distance*ECHELLE)
@@ -31,13 +42,10 @@ def prise_gobi(ETATP1):
         prise = False
         compt = 0
         while not prise and compt <= 23:
-            #if (
-                #pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
-                #<= 100
-            #):
             if (
-                (LISTEGOBI[compt][0]*ECHELLE == pince1.xcor()) and
-                (LISTEGOBI[compt][1]*ECHELLE == pince1.ycor())
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
+                and
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 50*ECHELLE
             ):
                 prise = True
             else:

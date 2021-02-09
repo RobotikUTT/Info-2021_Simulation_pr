@@ -116,8 +116,9 @@ def prise_gobi(ETATP1, ETATP2):
         compt = 0
         while not prise and compt <= 23:
             if (
-                LISTEGOBI[compt][0]*ECHELLE == pince1.xcor() and
-                LISTEGOBI[compt][1]*ECHELLE == pince1.ycor()
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
+                and
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 50*ECHELLE
             ):
                 prise = True
             else:
@@ -134,8 +135,9 @@ def prise_gobi(ETATP1, ETATP2):
         compt = 0
         while not prise and compt <= 23:
             if (
-                LISTEGOBI[compt][0] == pince2.xcor() and
-                LISTEGOBI[compt][1] == pince2.ycor()
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince2.xcor()) <= 50*ECHELLE
+                and
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince2.ycor()) <= 50*ECHELLE
             ):
                 prise = True
             else:
@@ -143,7 +145,8 @@ def prise_gobi(ETATP1, ETATP2):
         if prise:
             pince2.fillcolor(LISTEGOBI[compt][2])
             init_board.dessin_Cercle(
-                LISTEGOBI[compt][0], LISTEGOBI[compt][1], "aqua"
+                LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
+                "aqua"
             )
             STATE_PINCE2 = False
 ###############################################################################
