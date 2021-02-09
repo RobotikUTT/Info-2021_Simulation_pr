@@ -1,0 +1,68 @@
+from random import randint
+import turtle
+from constantes import LISTEGOBI
+import init_board
+
+###############################################################################
+GR = "green"
+RD = "red"
+BLE = "blue"
+YL = "yellow"
+BLC = "black"
+ECHELLE = 1/5
+LFT = "left"
+RGH = "right"
+ENTRAX = 117.95     # En mm
+VALEUR_ROTATION_P1P2 = 30.0
+###############################################################################
+
+
+def avancer(distance):
+    distance = round(distance*ECHELLE)
+    for i in range(distance):
+        pince1.forward(1)
+        print(pince1.position())
+        prise_gobi(STATE_PINCE1)
+        print(LISTEGOBI[10])
+
+
+def prise_gobi(ETATP1):
+    if ETATP1:
+        prise = False
+        compt = 0
+        while not prise and compt <= 23:
+            #if (
+                #pince1.distance(LISTEGOBI[compt][0], LISTEGOBI[compt][1])
+                #<= 100
+            #):
+            if (
+                (LISTEGOBI[compt][0]*ECHELLE == pince1.xcor()) and
+                (LISTEGOBI[compt][1]*ECHELLE == pince1.ycor())
+            ):
+                prise = True
+            else:
+                compt = compt + 1
+        if prise:
+            pince1.fillcolor(LISTEGOBI[compt][2])
+            init_board.dessin_Cercle(
+                LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
+                "aqua"
+            )
+            STATE_PINCE1 = False
+        print(prise)
+
+###############################################################################
+
+
+pince1 = turtle.Turtle()
+STATE_PINCE1 = True
+
+pince1.shapesize(1, 1, 1)
+pince1.penup()
+pince1.fillcolor("white")
+pince1.shape("circle")
+
+init_board.drawboard()
+pince1.goto(-700*ECHELLE, 200*ECHELLE)
+avancer(500)
+turtle.mainloop()

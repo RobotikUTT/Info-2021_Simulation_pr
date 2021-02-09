@@ -23,8 +23,8 @@ init_board.drawboard()
 robot_mouvment.init_robot()
 
 robot_mouvment.rotate(RGH, 90)
-robot_mouvment.avancer(10)
+robot_mouvment.avancer(50)
 robot_mouvment.rotate(LFT, 90)
-robot_mouvment.avancer(150)
+robot_mouvment.avancer(1000)
 
 turtle.mainloop()
