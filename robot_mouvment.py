@@ -8,8 +8,8 @@ from constantes import (
 import init_board
 
 ###############################################################################
-STATE_PINCE1 = True
-STATE_PINCE2 = True         # Vrai signifie que la pince est libre
+STATE_PINCE1 = None
+STATE_PINCE2 = None         # Vrai signifie que la pince est libre
 ###############################################################################
 
 
@@ -104,44 +104,44 @@ def init_robot():
 
 
 def prise_gobi(ETATP1, ETATP2):
-    if ETATP1:
+    if ETATP1 is None:
         prise = False
         compt = 0
-        while not prise and compt <= 23:
+        while not prise and compt < len(LISTEGOBI):
             if (
-                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 10*ECHELLE
                 and
-                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 50*ECHELLE
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 10*ECHELLE
             ):
                 prise = True
             else:
                 compt = compt + 1
         if prise:
-            pince1.fillcolor(LISTEGOBI[compt][2])
+            STATE_PINCE1 = LISTEGOBI[compt]
+            pince1.fillcolor(STATE_PINCE1[2])
             init_board.dessin_Cercle(
-                LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
+                STATE_PINCE1[0]*ECHELLE, STATE_PINCE1[1]*ECHELLE,
                 AQA
             )
-            STATE_PINCE1 = False
-    if ETATP2:
+    if ETATP2 is None:
         prise = False
         compt = 0
-        while not prise and compt <= 23:
+        while not prise and compt < len(LISTEGOBI):
             if (
-                abs(LISTEGOBI[compt][0]*ECHELLE - pince2.xcor()) <= 50*ECHELLE
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince2.xcor()) <= 10*ECHELLE
                 and
-                abs(LISTEGOBI[compt][1]*ECHELLE - pince2.ycor()) <= 50*ECHELLE
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince2.ycor()) <= 10*ECHELLE
             ):
                 prise = True
             else:
                 compt = compt + 1
         if prise:
-            pince2.fillcolor(LISTEGOBI[compt][2])
+            STATE_PINCE2 = LISTEGOBI[compt]
+            pince1.fillcolor(STATE_PINCE2[2])
             init_board.dessin_Cercle(
-                LISTEGOBI[compt][0]*ECHELLE, LISTEGOBI[compt][1]*ECHELLE,
+                STATE_PINCE2[0]*ECHELLE, STATE_PINCE2[1]*ECHELLE,
                 AQA
             )
-            STATE_PINCE2 = False
 ###############################################################################
 # Initialise les tBlue et ses pinces
 

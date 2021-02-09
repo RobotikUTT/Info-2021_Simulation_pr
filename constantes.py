@@ -7,11 +7,13 @@ BLC = (0, 0, 0)                    # Noir
 AQA = (79, 205, 251)
 BOTCOLOR = (196, 196, 196)
 ECHELLE = 1/5
+DIMTABLE = (3000, 2000)
+OFFSETX = DIMTABLE[0]//2
+OFFSETY = DIMTABLE[1]//2
 LFT = "left"
 RGH = "right"
 ENTRAX = 117.95     # En mm
 VALEUR_ROTATION_P1P2 = 30.0
-
 ###############################################################################
 
 LISTEGOBI = [

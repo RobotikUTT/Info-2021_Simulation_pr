@@ -15,7 +15,7 @@ def dessin_Gobies_init():
 
 def dessin_Cercle(x, y, color):
     turtle.penup()
-    turtle.goto(x, y)
+    turtle.goto(x, y-(75/2)*ECHELLE)
     turtle.pen(pencolor=color, fillcolor=color)
     turtle.begin_fill()
     turtle.circle((75/2)*ECHELLE)
