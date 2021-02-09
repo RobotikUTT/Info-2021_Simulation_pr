@@ -13,7 +13,7 @@ init_board.drawboard()
 robot_mouvment.init_robot()
 
 robot_mouvment.rotate(RGH, 90)
-robot_mouvment.avancer(100)
+robot_mouvment.avancer(250)
 robot_mouvment.rotate(LFT, 90)
 robot_mouvment.avancer(1000)
 

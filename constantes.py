@@ -1,12 +1,12 @@
 ###############################################################################
 GR = (0, 166, 0)                   # Vert
 RD = (229, 0, 0)                   # Rouge
-BLE = (0, 76, 229)                  # Bleu
-YL = (255, 191, 0)             # Jaune
+BLE = (0, 76, 229)                 # Bleu
+YL = (255, 191, 0)                 # Jaune
 BLC = (0, 0, 0)                    # Noir
-AQA = (79, 205, 251)
-BOTCOLOR = (196, 196, 196)
-ECHELLE = 1/5
+AQA = (79, 205, 251)               # Aqua
+BOTCOLOR = (196, 196, 196)         # Couleur du Robot
+ECHELLE = 1/5                      # Echelle des longueurs réel/simulation
 DIMTABLE = (3000, 2000)
 OFFSETX = DIMTABLE[0]//2
 OFFSETY = DIMTABLE[1]//2
@@ -43,3 +43,4 @@ LISTEGOBI = [
     (495, -955, GR, "CJ4"),
 ]
 # Donc la liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en unité turtle centrée.

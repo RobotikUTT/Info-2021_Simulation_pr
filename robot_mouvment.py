@@ -109,9 +109,9 @@ def prise_gobi(ETATP1, ETATP2):
         compt = 0
         while not prise and compt < len(LISTEGOBI):
             if (
-                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 10*ECHELLE
+                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
                 and
-                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 10*ECHELLE
+                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 50*ECHELLE
             ):
                 prise = True
             else:
