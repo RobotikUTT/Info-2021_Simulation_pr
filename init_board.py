@@ -83,6 +83,34 @@ def drawboard():
     dessin_Zone(-122.2, -200, 4.4, 30, BLC)
     dessin_Zone(117.8, -200, 4.4, 30, BLC)
     dessin_Zone(-2.2, -200, 4.4, 60, BLC)
+    # dessiner les zones de couleurs des bases
+    dessin_Zone_Couleur(
+        -1500*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
+    )
+    dessin_Zone_Couleur(
+        -1500*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
+    )
+    dessin_Zone_Couleur(
+        1100*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
+    )
+    dessin_Zone_Couleur(
+        1100*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
+    )
+    # dessiner les zones de couleurs des bases rochers
+    dessin_Zone_Couleur(
+        -450*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+    )
+    dessin_Zone_Couleur(
+        -250*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+    )
+    dessin_Zone_Couleur(
+        150*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+    )
+    dessin_Zone_Couleur(
+        350*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+    )
+
+    # *ECHELLE
 
     dessin_Gobies_init()
     turtle.title("Simulation de la coupe")
