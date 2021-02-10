@@ -1,18 +1,24 @@
+# coordonnées turtle centrée = CTC
+# coordonnées mm centrée = CMC
+# coordonnées mm offset = CMO
+
 ###############################################################################
-GR = (0, 166, 0)                   # Vert
-RD = (229, 0, 0)                   # Rouge
-BLE = (0, 76, 229)                 # Bleu
-YL = (255, 191, 0)                 # Jaune
-BLC = (0, 0, 0)                    # Noir
-AQA = (79, 205, 251)               # Aqua
-BOTCOLOR = (196, 196, 196)         # Couleur du Robot
-ECHELLE = 1/5                      # Echelle des longueurs réel/simulation
-DIMTABLE = (3000, 2000)
+GR = (0, 166, 0)                    # Vert
+RD = (229, 0, 0)                    # Rouge
+BLE = (0, 76, 229)                  # Bleu
+YL = (255, 191, 0)                  # Jaune
+BLC = (0, 0, 0)                     # Noir
+AQA = (79, 205, 251)                # Aqua
+BOTCOLOR = (196, 196, 196)          # Couleur du Robot
+ECHELLE = 1/5                       # Echelle des longueurs réel/simulation
+DIMTABLE = (3000, 2000)             # Les dimensions de la tables en x;y en CMO
 OFFSETX = DIMTABLE[0]//2
 OFFSETY = DIMTABLE[1]//2
 LFT = "left"
 RGH = "right"
-ENTRAX = 117.95     # En mm
+# En mm, distance entre le centre du robot et le centre des pinces
+ENTRAX = 117.95
+# Angle entre le vecteur robot et les vecteurs pinces
 VALEUR_ROTATION_P1P2 = 30.0
 ###############################################################################
 
@@ -42,5 +48,5 @@ LISTEGOBI = [
     (435, -655, RD, "CJ3"),
     (495, -955, GR, "CJ4"),
 ]
-# Donc la liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en unité turtle centrée.
+# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en CTC.
