@@ -9,7 +9,7 @@ import init_board
 
 ###############################################################################
 STATE_PINCE1 = None
-STATE_PINCE2 = None         # Vrai signifie que la pince est libre
+STATE_PINCE2 = None         # None signifie qu'elle est vide.
 ###############################################################################
 
 # coordonnées turtle centrée = CTC
@@ -139,10 +139,24 @@ def init_robot():
 
 
 def prise_gobi(ETATP1, ETATP2):
-    
+    """
+    Cette fonction va vérifier en fonction de la position des pinces si un gobi
+    est pris.
+    Un gobi est pris si la pince est vide et à la même position qu'un gobi.
+
+    On appelle avec STATE_PINCE1 et STATE_PINCE2 qui sont de base à None donc
+    ETATP1 et ETATP2 aussi.
+
+
+    """
     if ETATP1 is None:
         prise = False
         compt = 0
+        # on sort du while si compt = 24 ou si on est sur la position d'un gobi
+        # pince1.xcor() est en CTC on applique ECHELLE à LISTEGOBI[compt][0]
+        # et LISTEGOBI[compt][1]
+        # On considère qu'une pince est sur postion d'un gobi si elle se trouve
+        # à 5 CTC de distance soit 50 mm. A redéfinir.
         while not prise and compt < len(LISTEGOBI):
             if (
                 abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
