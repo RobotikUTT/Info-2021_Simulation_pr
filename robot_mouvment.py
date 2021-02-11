@@ -12,11 +12,27 @@ STATE_PINCE1 = None
 STATE_PINCE2 = None         # Vrai signifie que la pince est libre
 ###############################################################################
 
+# coordonnées turtle centrée = CTC
+# coordonnées mm centrée = CMC
+# coordonnées mm offset = CMO
 
 def calculer_pos_pinces():
-    xTB = tBlue.xcor()
-    yTB = tBlue.ycor()
-    alphTB = tBlue.heading()
+    """
+    On peut retrouver différentes informations à l'aide des différentes
+    fonctions turtle (lien) :
+    https://docs.python.org/fr/3/library/turtle.html#tell-turtle-s-state
+    On va donc détérminer le vecteur "vision" : v, du robot. Qui possède comme
+    norme la valeur de ENTRAX et possède la même direction que la ligne de
+    vision définit avec heading().
+    On va ensuite définir les vecteur p1 et p2 qui sont égaux à
+    v + une rotation.
+    Les pinces se trouvent alors toujours à la tête de ces vecteurs p1 et p2.
+    """
+    xTB = tBlue.xcor()  # Valeur x de la coordonné de tBlue en CTC
+    yTB = tBlue.ycor()  # Valeur y de la coordonné de tBlue en CTC
+    alphTB = tBlue.heading()    # Donne un angle en degré entre 0 et 360
+    # On définit le vecteur vision
+    # Dans les 4 cas suivant le vecteur prend des valeurs remarquable
     if (alphTB == 0) or (alphTB == 360):
         v = turtle.Vec2D((ENTRAX*ECHELLE), 0)
     elif alphTB == 90:
@@ -26,6 +42,8 @@ def calculer_pos_pinces():
     elif alphTB == 270:
         v = turtle.Vec2D(0, -(ENTRAX*ECHELLE))
     else:
+        # On fait un peu de trigo pour trouver les coordonnés de v à partir de
+        # deux valeurs intermédiaires m et n.
         if (alphTB > 0 and alphTB < 90):
             m = math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
             n = math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
@@ -45,10 +63,13 @@ def calculer_pos_pinces():
             m = math.cos(math.radians(alphTB))*(ENTRAX*ECHELLE)
             n = -math.sin(math.radians(alphTB))*(ENTRAX*ECHELLE)
             v = turtle.Vec2D(m, n)
+    # On crée p1 et p2
     p1 = v
     p2 = v
     p1 = p1.rotate(VALEUR_ROTATION_P1P2)
     p2 = p2.rotate(-VALEUR_ROTATION_P1P2)
+    # On connait l'origine des vecteurs p1 et p2
+    # On cherche alors l'arrivé, la tête
     xp1 = p1[0] + xTB
     yp1 = p1[1] + yTB
     xp2 = p2[0] + xTB
@@ -60,6 +81,12 @@ def calculer_pos_pinces():
 
 
 def avancer(distance):
+    """
+    Cette fonction prend en paramètre une distance en mm
+    Il fait avancer l'objet tBlue de "distance" et associant les pinces aux
+    mouvement et vérifie si les pinces capturent un gobi.
+    """
+    # Met la distance en mm à l'échelle CTC et arondit
     distance = round(distance*ECHELLE)
     for i in range(distance):
         tBlue.forward(1)
@@ -68,6 +95,11 @@ def avancer(distance):
 
 
 def rotate(sens, valeur):
+    """
+    sens est soit égal à "left" soit égal à "right"
+    valeur est est degré.
+    tBlue va tourner dans le sens et d'une valeur donnée
+    """
     valeur = round(valeur*ECHELLE)
     if sens == "left":
         for i in range(valeur):
