@@ -100,7 +100,6 @@ def rotate(sens, valeur):
     valeur est est degré.
     tBlue va tourner dans le sens et d'une valeur donnée
     """
-    # valeur = round(valeur*ECHELLE)
     if sens == "left":
         for i in range(valeur):
             tBlue.left(1)
@@ -114,6 +113,10 @@ def rotate(sens, valeur):
 
 
 def init_robot():
+    """
+    Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
+    pinces.
+    """
     tBlue.shape("square")
     tBlue.shapesize(2.2, 2.2, 2.2)
     tBlue.penup()
@@ -136,6 +139,7 @@ def init_robot():
 
 
 def prise_gobi(ETATP1, ETATP2):
+    
     if ETATP1 is None:
         prise = False
         compt = 0
