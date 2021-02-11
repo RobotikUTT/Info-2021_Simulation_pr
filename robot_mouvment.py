@@ -100,7 +100,7 @@ def rotate(sens, valeur):
     valeur est est degré.
     tBlue va tourner dans le sens et d'une valeur donnée
     """
-    valeur = round(valeur*ECHELLE)
+    # valeur = round(valeur*ECHELLE)
     if sens == "left":
         for i in range(valeur):
             tBlue.left(1)
