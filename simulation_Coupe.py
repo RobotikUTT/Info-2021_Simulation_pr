@@ -13,9 +13,9 @@ init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
 
-robot_mouvment.rotate(RGH, 90)
+robot_mouvment.rotate(RGH, 45)
 robot_mouvment.avancer(100)
-robot_mouvment.rotate(LFT, 90)
-robot_mouvment.avancer(1000)
+robot_mouvment.rotate(LFT, 45)
+robot_mouvment.avancer(2000)
 
 turtle.mainloop()
