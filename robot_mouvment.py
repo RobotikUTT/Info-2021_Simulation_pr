@@ -3,7 +3,7 @@ from random import randint
 import math
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO
 )
 import init_board
 
@@ -146,8 +146,6 @@ def prise_gobi(ETATP1, ETATP2):
 
     On appelle avec STATE_PINCE1 et STATE_PINCE2 qui sont de base à None donc
     ETATP1 et ETATP2 aussi.
-
-
     """
     if ETATP1 is None:
         prise = False
@@ -166,9 +164,12 @@ def prise_gobi(ETATP1, ETATP2):
                 prise = True
             else:
                 compt = compt + 1
+        # Si prise = true alors la pince se trouve sur un gobi
         if prise:
             STATE_PINCE1 = LISTEGOBI[compt]
+            # La pince prend la couleur du gobi
             pince1.fillcolor(STATE_PINCE1[2])
+            # On efface le gobi avec la couleur du fond
             init_board.dessin_Cercle(
                 STATE_PINCE1[0]*ECHELLE, STATE_PINCE1[1]*ECHELLE,
                 AQA

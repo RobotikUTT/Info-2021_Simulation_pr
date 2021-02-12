@@ -3,6 +3,65 @@
 # coordonnées mm offset = CMO
 
 ###############################################################################
+
+
+def convert_CMOtoCTC(val, axe):
+    if (axe == "x"):
+        if (val == 1500):
+            return (0)
+        elif (val == 0):
+            return (-1500*ECHELLE)
+        elif (val == 3000):
+            return (1500*ECHELLE)
+        else:
+            if (val < 1500):
+                return(-ECHELLE*(1500-val))
+            else:
+                return(ECHELLE*(val-1500))
+    if (axe == "y"):
+        if (val == 1000):
+            return (0)
+        elif (val == 0):
+            return (1000*ECHELLE)
+        elif (val == 2000):
+            return (-1000*ECHELLE)
+        else:
+            if (val < 1000):
+                return(ECHELLE*(1000-val))
+            else:
+                return(ECHELLE*(val-1000))
+
+
+def convert_CTCtoCMO(val, axe):
+    if (axe == "x"):
+        if (val == 0):
+            return (1500)
+        elif (val == -300):
+            return (0)
+        elif (val == 300):
+            return (3000)
+        else:
+            if (val < 0):
+                return((300-(-val))/ECHELLE)
+            else:
+                return(val/ECHELLE+1500)
+    if (axe == "y"):
+        if (val == 0):
+            return (1000)
+        elif (val == -200):
+            return (2000)
+        elif (val == 200):
+            return (0)
+        else:
+            if (val < 0):
+                return(-val*ECHELLE+1000)
+            else:
+                return((1000-val)*ECHELLE)
+
+
+###############################################################################
+
+
 GR = (0, 166, 0)                    # Vert
 RD = (229, 0, 0)                    # Rouge
 BLE = (0, 76, 229)                  # Bleu
@@ -49,4 +108,34 @@ LISTEGOBI = [
     (495, -955, GR, "CJ4"),
 ]
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CTC.
+# La valeur des coordonnées est en CMC.
+"""
+LISTEGOBI = [
+    (300, 400, RD, "QB1"),
+    (445, 515, GR, "QB2"),
+    (445, 1085, RD, "QB3"),
+    (300, 1200, GR, "QB4"),
+    (2700, 400, GR, "QJ1"),
+    (2555, 515, RD, "QJ2"),
+    (2555, 1085, GR, "QJ3"),
+    (2700, 1200, RD, "QJ4"),
+    (670, 100, RD, "LB1"),
+    (956, 400, GR, "LB2"),
+    (1100, 800, RD, "LB3"),
+    (1270, 1200, GR, "LB4"),
+    (2330, 100, GR, "LJ1"),
+    (2044, 400, RD, "LJ2"),
+    (1900, 800, GR, "LJ3"),
+    (1730, 1200, RD, "LJ4"),
+    (1005, 1955, RD, "CB1"),
+    (1065, 1655, GR, "CB2"),
+    (1335, 1655, RD, "CB3"),
+    (1395, 1955, GR, "CB4"),
+    (1605, 1955, RD, "CJ1"),
+    (1665, 1655, GR, "CJ2"),
+    (1935, 1655, RD, "CJ3"),
+    (1995, 1955, GR, "CJ4"),
+]
+# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en CMO.
+"""
