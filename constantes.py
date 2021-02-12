@@ -81,6 +81,8 @@ ENTRAX = 117.95
 VALEUR_ROTATION_P1P2 = 30.0
 ###############################################################################
 
+# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en CMC.
 LISTEGOBI = [
     (-1200, 600, RD, "QB1"),
     (-1055, 485, GR, "QB2"),
@@ -107,10 +109,8 @@ LISTEGOBI = [
     (435, -655, RD, "CJ3"),
     (495, -955, GR, "CJ4"),
 ]
-# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMC.
-"""
-LISTEGOBI = [
+
+LISTEGOBI2 = [
     (300, 400, RD, "QB1"),
     (445, 515, GR, "QB2"),
     (445, 1085, RD, "QB3"),
@@ -138,4 +138,3 @@ LISTEGOBI = [
 ]
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CMO.
-"""

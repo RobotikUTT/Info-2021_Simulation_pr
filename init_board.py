@@ -17,6 +17,17 @@ def dessin_Gobies_init():
             LISTEGOBI[i][0]*ECHELLE, LISTEGOBI[i][1]*ECHELLE, LISTEGOBI[i][2]
         )
 
+def dessin_Gobies_init2():
+    """
+    Dessine l'ensemble des gobies de la table (à ne faire qu'une fois). Dans
+    l'état les éléments de la liste sont en unité turtle centré donc on applique
+    juste ECHELLE.
+    """
+    for i in range(0, 24):
+        dessin_Cercle(
+            
+        )
+
 
 def dessin_Cercle(x, y, color):
     """

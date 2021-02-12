@@ -7,6 +7,7 @@ from constantes import (
 import init_board
 import robot_mouvment
 
+
 # Crée le plateau de jeu
 init_board.drawboard()
 # Initialise le robot et les pinces
