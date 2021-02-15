@@ -105,46 +105,71 @@ def drawboard():
     # coordonnées mm offset = CMO
 
     # dessiner le cadre
-    dessin_Zone_Couleur(-300, -200, 600, 400, AQA)  # CTC
+    dessin_Zone_Couleur(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(2000, "y"), 3000*ECHELLE, 2000*ECHELLE, AQA
+    )
     # dessiner la zone de jeu1
-    dessin_Zone(-300, -14, 80, 108, BLE)    # CTC
+    dessin_Zone(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(1070, "y"), 400*ECHELLE, 540*ECHELLE, BLE
+    )
     # dessiner la zone de jeu2
-    dessin_Zone(220, -14, 80, 108, YL)  # CTC
+    dessin_Zone(convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(1070, "y"), 400*ECHELLE, 540*ECHELLE, YL
+    )
     # dessiner la zone de jeu jaune bas
-    dessin_Zone(-70, -200, 20, 60, YL)  # CTC
+    dessin_Zone(convert_CMOtoCTC(1150,"x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, YL
+    )
     # dessiner la zone de jeu bleu bas
-    dessin_Zone(50, -200, 20, 60, BLE)  # CTC
+    dessin_Zone(convert_CMOtoCTC(1750,"x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, BLE
+    )
     # dessiner les rochers
-    dessin_Zone(-122.2, -200, 4.4, 30, BLC) # CTC
-    dessin_Zone(117.8, -200, 4.4, 30, BLC)  # CTC
-    dessin_Zone(-2.2, -200, 4.4, 60, BLC)   # CTC
+    dessin_Zone(convert_CMOtoCTC(889,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 150*ECHELLE, BLC
+    )
+    dessin_Zone(convert_CMOtoCTC(2089,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 150*ECHELLE, BLC
+    )
+    dessin_Zone(convert_CMOtoCTC(1489,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 300*ECHELLE, BLC
+    )
 
     # dessiner les zones de couleurs des bases
     dessin_Zone_Couleur(
-        -1500*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(0,"x"),
+        convert_CMOtoCTC(530, "y"), 400*ECHELLE, 30*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        -1500*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(0,"x"),
+        convert_CMOtoCTC(1100, "y"), 400*ECHELLE, 30*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        1100*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(530, "y"), 400*ECHELLE, 30*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        1100*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(1100, "y"), 400*ECHELLE, 30*ECHELLE, GR
+    )
+    
     # dessiner les zones de couleurs des bases rochers
     dessin_Zone_Couleur(
-        -450*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
-    )   # CMC
+        -450*ECHELLE,
+        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        -250*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
-    )   # CMC
+        -250*ECHELLE,
+        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        150*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
-    )   # CMC
+        150*ECHELLE,
+        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        350*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
-    )   # CMC
+        350*ECHELLE,
+        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+    )
 
     # *ECHELLE
     dessin_Zone(-300, -200, 600, 400, BLC)  # Dessine le contour noir en CTC
