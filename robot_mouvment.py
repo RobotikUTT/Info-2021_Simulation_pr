@@ -3,7 +3,8 @@ from random import randint
 import math
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
+    ORIGINtBy
 )
 import init_board
 
@@ -132,7 +133,9 @@ def init_robot():
     pince2.fillcolor("white")
     pince2.shape("circle")
 
-    tBlue.goto(convert_CMOtoCTC(250,"x"), convert_CMOtoCTC(800, "y"))
+    tBlue.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
+        convert_CMOtoCTC(ORIGINtBy, "y")
+    )
     calculer_pos_pinces()
     print(pince1.position())
     print(pince2.position())

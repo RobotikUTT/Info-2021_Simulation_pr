@@ -2,7 +2,8 @@ import turtle
 from random import randint
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
+    ORIGINtBy, DIAMETREGOBI
 )
 
 
@@ -35,10 +36,10 @@ def dessin_Cercle(x, y, color):
     bas.
     """
     turtle.penup()
-    turtle.goto(x, y-(75/2)*ECHELLE)
+    turtle.goto(x, y-(DIAMETREGOBI/2)*ECHELLE)
     turtle.pen(pencolor=color, fillcolor=color)
     turtle.begin_fill()
-    turtle.circle((75/2)*ECHELLE)
+    turtle.circle((DIAMETREGOBI/2)*ECHELLE)
     turtle.end_fill()
 
 
@@ -172,7 +173,7 @@ def drawboard():
     )
 
     dessin_Zone(convert_CMOtoCTC(0, "x"),
-        convert_CMOtoCTC(2000, "y"), 600, 400, BLC
+        convert_CMOtoCTC(2000, "y"), 3000*ECHELLE, 2000*ECHELLE, BLC
     )
     dessin_Gobies_init()
     turtle.title("Simulation de la coupe")
