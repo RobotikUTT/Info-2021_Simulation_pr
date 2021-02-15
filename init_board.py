@@ -12,19 +12,19 @@ def dessin_Gobies_init():
     l'état les éléments de la liste sont en unité turtle centré donc on applique
     juste ECHELLE.
     """
-
-    """
     for i in range(0, 24):
         dessin_Cercle(
             LISTEGOBI[i][0]*ECHELLE, LISTEGOBI[i][1]*ECHELLE, LISTEGOBI[i][2]
         )
-    """
+
+"""
     for i in range(0, 24):
         dessin_Cercle(
             convert_CMOtoCTC(LISTEGOBI2[i][0], "x"),
             convert_CMOtoCTC(LISTEGOBI2[i][1], "y"),
             LISTEGOBI2[i][2]
         )
+"""
 
 def dessin_Cercle(x, y, color):
     """
