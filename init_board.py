@@ -1,7 +1,7 @@
 import turtle
 from random import randint
 from constantes import (
-    LISTEGOBI, LISTEGOBI2, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
+    LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
     VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO
 )
 
