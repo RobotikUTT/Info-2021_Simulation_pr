@@ -12,13 +12,6 @@ def dessin_Gobies_init():
     l'état les éléments de la liste sont en unité turtle centré donc on applique
     juste ECHELLE.
     """
-
-    """
-    for i in range(0, 24):
-        dessin_Cercle(
-            LISTEGOBI[i][0]*ECHELLE, LISTEGOBI[i][1]*ECHELLE, LISTEGOBI[i][2]
-        )
-    """
     for i in range(0, 24):
         dessin_Cercle(
             convert_CMOtoCTC(LISTEGOBI2[i][0], "x"),
@@ -50,8 +43,8 @@ def dessin_Cercle(x, y, color):
 
 
 def dessin_Zone_Couleur(x, y, long, large, color):
-    # long : longeur sur l'axe des x
-    # large : largeur sur l'axe des y
+    # long : longeur sur l'axe des x en CTC
+    # large : largeur sur l'axe des y en CTC
     """
     Dessine un rectangle plein de couleur : color, et de dimensions long*large.
     Les coordonnées en x;y en entré sont celle de la base inférieur gauche
@@ -72,8 +65,8 @@ def dessin_Zone_Couleur(x, y, long, large, color):
 
 
 def dessin_Zone(x, y, long, large, color):
-    # long : longeur sur l'axe des x
-    # large : largeur sur l'axe des y
+    # long : longeur sur l'axe des x en CTC
+    # large : largeur sur l'axe des y en CTC
     """
     Dessine un rectangle vide de couleur : color, et de dimensions long*large.
     Les coordonnées en x;y en entré sont celle de la base inférieur gauche
