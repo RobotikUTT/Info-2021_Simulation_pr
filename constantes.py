@@ -83,7 +83,7 @@ VALEUR_ROTATION_P1P2 = 30.0
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CMC.
-LISTEGOBI = [
+LISTEGOBI2 = [
     (-1200, 600, RD, "QB1"),
     (-1055, 485, GR, "QB2"),
     (-1055, -85, RD, "QB3"),
@@ -110,7 +110,7 @@ LISTEGOBI = [
     (495, -955, GR, "CJ4"),
 ]
 
-LISTEGOBI2 = [
+LISTEGOBI = [
     (300, 400, RD, "QB1"),
     (445, 515, GR, "QB2"),
     (445, 1085, RD, "QB3"),

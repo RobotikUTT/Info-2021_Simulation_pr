@@ -14,9 +14,9 @@ def dessin_Gobies_init():
     """
     for i in range(0, 24):
         dessin_Cercle(
-            convert_CMOtoCTC(LISTEGOBI2[i][0], "x"),
-            convert_CMOtoCTC(LISTEGOBI2[i][1], "y"),
-            LISTEGOBI2[i][2]
+            convert_CMOtoCTC(LISTEGOBI[i][0], "x"),
+            convert_CMOtoCTC(LISTEGOBI[i][1], "y"),
+            LISTEGOBI[i][2]
         )
 
 def dessin_Cercle(x, y, color):
