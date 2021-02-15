@@ -1,8 +1,9 @@
 import turtle
 from random import randint
 from constantes import (
-    LISTEGOBI, LISTEGOBI2, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO
+    LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
+    ORIGINtBy, DIAMETREGOBI
 )
 
 
@@ -14,17 +15,10 @@ def dessin_Gobies_init():
     """
     for i in range(0, 24):
         dessin_Cercle(
-            LISTEGOBI[i][0]*ECHELLE, LISTEGOBI[i][1]*ECHELLE, LISTEGOBI[i][2]
+            convert_CMOtoCTC(LISTEGOBI[i][0], "x"),
+            convert_CMOtoCTC(LISTEGOBI[i][1], "y"),
+            LISTEGOBI[i][2]
         )
-
-"""
-    for i in range(0, 24):
-        dessin_Cercle(
-            convert_CMOtoCTC(LISTEGOBI2[i][0], "x"),
-            convert_CMOtoCTC(LISTEGOBI2[i][1], "y"),
-            LISTEGOBI2[i][2]
-        )
-"""
 
 def dessin_Cercle(x, y, color):
     """
@@ -42,16 +36,16 @@ def dessin_Cercle(x, y, color):
     bas.
     """
     turtle.penup()
-    turtle.goto(x, y-(75/2)*ECHELLE)
+    turtle.goto(x, y-(DIAMETREGOBI/2)*ECHELLE)
     turtle.pen(pencolor=color, fillcolor=color)
     turtle.begin_fill()
-    turtle.circle((75/2)*ECHELLE)
+    turtle.circle((DIAMETREGOBI/2)*ECHELLE)
     turtle.end_fill()
 
 
 def dessin_Zone_Couleur(x, y, long, large, color):
-    # long : longeur sur l'axe des x
-    # large : largeur sur l'axe des y
+    # long : longeur sur l'axe des x en CTC
+    # large : largeur sur l'axe des y en CTC
     """
     Dessine un rectangle plein de couleur : color, et de dimensions long*large.
     Les coordonnées en x;y en entré sont celle de la base inférieur gauche
@@ -72,8 +66,8 @@ def dessin_Zone_Couleur(x, y, long, large, color):
 
 
 def dessin_Zone(x, y, long, large, color):
-    # long : longeur sur l'axe des x
-    # large : largeur sur l'axe des y
+    # long : longeur sur l'axe des x en CTC
+    # large : largeur sur l'axe des y en CTC
     """
     Dessine un rectangle vide de couleur : color, et de dimensions long*large.
     Les coordonnées en x;y en entré sont celle de la base inférieur gauche
@@ -112,49 +106,75 @@ def drawboard():
     # coordonnées mm offset = CMO
 
     # dessiner le cadre
-    dessin_Zone_Couleur(-300, -200, 600, 400, AQA)  # CTC
+    dessin_Zone_Couleur(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(2000, "y"), 3000*ECHELLE, 2000*ECHELLE, AQA
+    )
     # dessiner la zone de jeu1
-    dessin_Zone(-300, -14, 80, 108, BLE)    # CTC
+    dessin_Zone(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(1070, "y"), 400*ECHELLE, 540*ECHELLE, BLE
+    )
     # dessiner la zone de jeu2
-    dessin_Zone(220, -14, 80, 108, YL)  # CTC
+    dessin_Zone(convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(1070, "y"), 400*ECHELLE, 540*ECHELLE, YL
+    )
     # dessiner la zone de jeu jaune bas
-    dessin_Zone(-70, -200, 20, 60, YL)  # CTC
+    dessin_Zone(convert_CMOtoCTC(1150,"x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, YL
+    )
     # dessiner la zone de jeu bleu bas
-    dessin_Zone(50, -200, 20, 60, BLE)  # CTC
+    dessin_Zone(convert_CMOtoCTC(1750,"x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, BLE
+    )
     # dessiner les rochers
-    dessin_Zone(-122.2, -200, 4.4, 30, BLC) # CTC
-    dessin_Zone(117.8, -200, 4.4, 30, BLC)  # CTC
-    dessin_Zone(-2.2, -200, 4.4, 60, BLC)   # CTC
+    dessin_Zone(convert_CMOtoCTC(889,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 150*ECHELLE, BLC
+    )
+    dessin_Zone(convert_CMOtoCTC(2089,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 150*ECHELLE, BLC
+    )
+    dessin_Zone(convert_CMOtoCTC(1489,"x"),
+        convert_CMOtoCTC(2000, "y"), 22*ECHELLE, 300*ECHELLE, BLC
+    )
 
     # dessiner les zones de couleurs des bases
     dessin_Zone_Couleur(
-        -1500*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(0,"x"),
+        convert_CMOtoCTC(530, "y"), 400*ECHELLE, 30*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        -1500*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(0,"x"),
+        convert_CMOtoCTC(1100, "y"), 400*ECHELLE, 30*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        1100*ECHELLE, 470*ECHELLE, 400*ECHELLE, 30*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(530, "y"), 400*ECHELLE, 30*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        1100*ECHELLE, -100*ECHELLE, 400*ECHELLE, 30*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(2600, "x"),
+        convert_CMOtoCTC(1100, "y"), 400*ECHELLE, 30*ECHELLE, GR
+    )
+
     # dessiner les zones de couleurs des bases rochers
     dessin_Zone_Couleur(
-        -450*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(1050, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        -250*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(1250, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, RD
+    )
     dessin_Zone_Couleur(
-        150*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
-    )   # CMC
+        convert_CMOtoCTC(1650, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, GR
+    )
     dessin_Zone_Couleur(
-        350*ECHELLE, -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
-    )   # CMC
+        convert_CMOtoCTC(1850, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, RD
+    )
 
-    # *ECHELLE
-    dessin_Zone(-300, -200, 600, 400, BLC)  # Dessine le contour noir en CTC
+    dessin_Zone(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(2000, "y"), 3000*ECHELLE, 2000*ECHELLE, BLC
+    )
     dessin_Gobies_init()
     turtle.title("Simulation de la coupe")
     turtle.home()   # Retourne en 0;0 CTC

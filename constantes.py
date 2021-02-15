@@ -79,38 +79,16 @@ RGH = "right"
 ENTRAX = 117.95
 # Angle entre le vecteur robot et les vecteurs pinces
 VALEUR_ROTATION_P1P2 = 30.0
+# Origine du robot en CMO
+ORIGINtBx = 250 # En CMO
+ORIGINtBy = 800 # En CMO
+DIAMETREGOBI = 75 # En mm
+LONGUER_ACCEPTATION_PINCES = 50 # En mm
 ###############################################################################
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMC.
+# La valeur des coordonnées est en CMO.
 LISTEGOBI = [
-    (-1200, 600, RD, "QB1"),
-    (-1055, 485, GR, "QB2"),
-    (-1055, -85, RD, "QB3"),
-    (-1200, -200, GR, "QB4"),
-    (1200, 600, GR, "QJ1"),
-    (1055, 485, RD, "QJ2"),
-    (1055, -85, GR, "QJ3"),
-    (1200, -200, RD, "QJ4"),
-    (-830, 900, RD, "LB1"),
-    (-544, 600, GR, "LB2"),
-    (-400, 200, RD, "LB3"),
-    (-230, -200, GR, "LB4"),
-    (830, 900, GR, "LJ1"),
-    (544, 600, RD, "LJ2"),
-    (400, 200, GR, "LJ3"),
-    (230, -200, RD, "LJ4"),
-    (-495, -955, RD, "CB1"),
-    (-435, -655, GR, "CB2"),
-    (-165, -655, RD, "CB3"),
-    (-105, -955, GR, "CB4"),
-    (105, -955, RD, "CJ1"),
-    (165, -655, GR, "CJ2"),
-    (435, -655, RD, "CJ3"),
-    (495, -955, GR, "CJ4"),
-]
-
-LISTEGOBI2 = [
     (300, 400, RD, "QB1"),
     (445, 515, GR, "QB2"),
     (445, 1085, RD, "QB3"),
@@ -136,8 +114,35 @@ LISTEGOBI2 = [
     (1935, 1655, RD, "CJ3"),
     (1995, 1955, GR, "CJ4"),
 ]
+
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMO.
+# La valeur des coordonnées est en CMC.
+LISTEGOBI2 = [
+    (-1200, 600, RD, "QB1"),
+    (-1055, 485, GR, "QB2"),
+    (-1055, -85, RD, "QB3"),
+    (-1200, -200, GR, "QB4"),
+    (1200, 600, GR, "QJ1"),
+    (1055, 485, RD, "QJ2"),
+    (1055, -85, GR, "QJ3"),
+    (1200, -200, RD, "QJ4"),
+    (-830, 900, RD, "LB1"),
+    (-544, 600, GR, "LB2"),
+    (-400, 200, RD, "LB3"),
+    (-230, -200, GR, "LB4"),
+    (830, 900, GR, "LJ1"),
+    (544, 600, RD, "LJ2"),
+    (400, 200, GR, "LJ3"),
+    (230, -200, RD, "LJ4"),
+    (-495, -955, RD, "CB1"),
+    (-435, -655, GR, "CB2"),
+    (-165, -655, RD, "CB3"),
+    (-105, -955, GR, "CB4"),
+    (105, -955, RD, "CJ1"),
+    (165, -655, GR, "CJ2"),
+    (435, -655, RD, "CJ3"),
+    (495, -955, GR, "CJ4"),
+]
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CTC.
