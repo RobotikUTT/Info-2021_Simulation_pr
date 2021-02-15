@@ -22,14 +22,14 @@ def convert_CMOtoCTC(val, axe):
         if (val == 1000):
             return (0)
         elif (val == 0):
-            return (1000*ECHELLE)
+            return (200)
         elif (val == 2000):
-            return (-1000*ECHELLE)
+            return (-200)
         else:
             if (val < 1000):
                 return(ECHELLE*(1000-val))
             else:
-                return(ECHELLE*(val-1000))
+                return(-ECHELLE*(val-1000))
 
 
 def convert_CTCtoCMO(val, axe):
@@ -53,10 +53,10 @@ def convert_CTCtoCMO(val, axe):
         elif (val == 200):
             return (0)
         else:
-            if (val < 0):
-                return(-val*ECHELLE+1000)
+            if (val > 0):
+                return((200-val)/ECHELLE)
             else:
-                return((1000-val)*ECHELLE)
+                return((-val)/ECHELLE+1000)
 
 
 ###############################################################################
@@ -138,3 +138,32 @@ LISTEGOBI2 = [
 ]
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CMO.
+
+# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en CTC.
+LISTEGOBI3 = [
+    (-240, 120, RD, "QB1"),
+    (-211, 97, GR, "QB2"),
+    (-211, -17, RD, "QB3"),
+    (-240, -40, GR, "QB4"),
+    (240, 120, GR, "QJ1"),
+    (211, 97, RD, "QJ2"),
+    (211, -17, GR, "QJ3"),
+    (240, -40, RD, "QJ4"),
+    (-166, 180, RD, "LB1"),
+    (-108.8, 120, GR, "LB2"),
+    (-80, 40, RD, "LB3"),
+    (-46, -40, GR, "LB4"),
+    (166, 180, GR, "LJ1"),
+    (108.8, 120, RD, "LJ2"),
+    (80, 40, GR, "LJ3"),
+    (46, -40, RD, "LJ4"),
+    (-99, -191, RD, "CB1"),
+    (-87, -131, GR, "CB2"),
+    (-33, -131, RD, "CB3"),
+    (-21, -191, GR, "CB4"),
+    (21, -191, RD, "CJ1"),
+    (33, -131, GR, "CJ2"),
+    (87, -131, RD, "CJ3"),
+    (99, -191, GR, "CJ4"),
+]
