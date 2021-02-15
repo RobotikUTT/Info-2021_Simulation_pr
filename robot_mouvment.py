@@ -132,7 +132,7 @@ def init_robot():
     pince2.fillcolor("white")
     pince2.shape("circle")
 
-    tBlue.goto(-250, 40)
+    tBlue.goto(convert_CMOtoCTC(250,"x"), convert_CMOtoCTC(800, "y"))
     calculer_pos_pinces()
     print(pince1.position())
     print(pince2.position())

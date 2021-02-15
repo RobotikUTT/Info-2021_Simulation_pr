@@ -171,7 +171,6 @@ def drawboard():
         convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, RD
     )
 
-    # Dessine le contour noir en CTC
     dessin_Zone(convert_CMOtoCTC(0, "x"),
         convert_CMOtoCTC(2000, "y"), 600, 400, BLC
     )
