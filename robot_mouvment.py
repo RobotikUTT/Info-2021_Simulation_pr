@@ -4,7 +4,7 @@ import math
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
     VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
-    ORIGINtBy
+    ORIGINtBy, LONGUER_ACCEPTATION_PINCES
 )
 import init_board
 
@@ -92,7 +92,7 @@ def avancer(distance):
     for i in range(distance):
         tBlue.forward(1)
         calculer_pos_pinces()
-        prise_gobi(STATE_PINCE1, STATE_PINCE2)
+        prise_gobi()
 
 
 def rotate(sens, valeur):
@@ -105,12 +105,12 @@ def rotate(sens, valeur):
         for i in range(valeur):
             tBlue.left(1)
             calculer_pos_pinces()
-            prise_gobi(STATE_PINCE1, STATE_PINCE2)
+            prise_gobi()
     elif sens == "right":
         for i in range(valeur):
             tBlue.right(1)
             calculer_pos_pinces()
-            prise_gobi(STATE_PINCE1, STATE_PINCE2)
+            prise_gobi()
 
 
 def init_robot():
@@ -141,7 +141,7 @@ def init_robot():
     print(pince2.position())
 
 
-def prise_gobi(ETATP1, ETATP2):
+def prise_gobi():
     """
     Cette fonction va vérifier en fonction de la position des pinces si un gobi
     est pris.
@@ -150,19 +150,23 @@ def prise_gobi(ETATP1, ETATP2):
     On appelle avec STATE_PINCE1 et STATE_PINCE2 qui sont de base à None donc
     ETATP1 et ETATP2 aussi.
     """
-    if ETATP1 is None:
+    global STATE_PINCE1, STATE_PINCE2
+    if STATE_PINCE1 is None:
         prise = False
         compt = 0
         # on sort du while si compt = 24 ou si on est sur la position d'un gobi
         # pince1.xcor() est en CTC on applique ECHELLE à LISTEGOBI[compt][0]
         # et LISTEGOBI[compt][1]
         # On considère qu'une pince est sur postion d'un gobi si elle se trouve
-        # à 5 CTC de distance soit 50 mm. A redéfinir.
         while not prise and compt < len(LISTEGOBI):
             if (
-                abs(LISTEGOBI[compt][0]*ECHELLE - pince1.xcor()) <= 50*ECHELLE
+                abs(
+                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - pince1.xcor()
+                ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
                 and
-                abs(LISTEGOBI[compt][1]*ECHELLE - pince1.ycor()) <= 50*ECHELLE
+                abs(
+                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - pince1.ycor()
+                ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
             ):
                 prise = True
             else:
@@ -170,30 +174,38 @@ def prise_gobi(ETATP1, ETATP2):
         # Si prise = true alors la pince se trouve sur un gobi
         if prise:
             STATE_PINCE1 = LISTEGOBI[compt]
+            print(STATE_PINCE1)
             # La pince prend la couleur du gobi
             pince1.fillcolor(STATE_PINCE1[2])
             # On efface le gobi avec la couleur du fond
             init_board.dessin_Cercle(
-                STATE_PINCE1[0]*ECHELLE, STATE_PINCE1[1]*ECHELLE,
+                convert_CMOtoCTC(LISTEGOBI[compt][0], "x"),
+                convert_CMOtoCTC(LISTEGOBI[compt][1], "y"),
                 AQA
             )
-    if ETATP2 is None:
+    if STATE_PINCE2 is None:
         prise = False
         compt = 0
         while not prise and compt < len(LISTEGOBI):
             if (
-                abs(LISTEGOBI[compt][0]*ECHELLE - pince2.xcor()) <= 10*ECHELLE
+                abs(
+                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - pince2.xcor()
+                ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
                 and
-                abs(LISTEGOBI[compt][1]*ECHELLE - pince2.ycor()) <= 10*ECHELLE
+                abs(
+                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - pince2.ycor()
+                ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
             ):
                 prise = True
             else:
                 compt = compt + 1
         if prise:
             STATE_PINCE2 = LISTEGOBI[compt]
+            print(STATE_PINCE2)
             pince1.fillcolor(STATE_PINCE2[2])
             init_board.dessin_Cercle(
-                STATE_PINCE2[0]*ECHELLE, STATE_PINCE2[1]*ECHELLE,
+                convert_CMOtoCTC(LISTEGOBI[compt][0], "x"),
+                convert_CMOtoCTC(LISTEGOBI[compt][1], "y"),
                 AQA
             )
 ###############################################################################
