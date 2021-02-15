@@ -79,7 +79,40 @@ RGH = "right"
 ENTRAX = 117.95
 # Angle entre le vecteur robot et les vecteurs pinces
 VALEUR_ROTATION_P1P2 = 30.0
+# Origine du robot en CMO
+ORIGINtBx = 250
+ORIGINtBy = 800
+DIAMETREGOBI = 75
 ###############################################################################
+
+# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+# La valeur des coordonnées est en CMO.
+LISTEGOBI = [
+    (300, 400, RD, "QB1"),
+    (445, 515, GR, "QB2"),
+    (445, 1085, RD, "QB3"),
+    (300, 1200, GR, "QB4"),
+    (2700, 400, GR, "QJ1"),
+    (2555, 515, RD, "QJ2"),
+    (2555, 1085, GR, "QJ3"),
+    (2700, 1200, RD, "QJ4"),
+    (670, 100, RD, "LB1"),
+    (956, 400, GR, "LB2"),
+    (1100, 800, RD, "LB3"),
+    (1270, 1200, GR, "LB4"),
+    (2330, 100, GR, "LJ1"),
+    (2044, 400, RD, "LJ2"),
+    (1900, 800, GR, "LJ3"),
+    (1730, 1200, RD, "LJ4"),
+    (1005, 1955, RD, "CB1"),
+    (1065, 1655, GR, "CB2"),
+    (1335, 1655, RD, "CB3"),
+    (1395, 1955, GR, "CB4"),
+    (1605, 1955, RD, "CJ1"),
+    (1665, 1655, GR, "CJ2"),
+    (1935, 1655, RD, "CJ3"),
+    (1995, 1955, GR, "CJ4"),
+]
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CMC.
@@ -109,35 +142,6 @@ LISTEGOBI2 = [
     (435, -655, RD, "CJ3"),
     (495, -955, GR, "CJ4"),
 ]
-
-LISTEGOBI = [
-    (300, 400, RD, "QB1"),
-    (445, 515, GR, "QB2"),
-    (445, 1085, RD, "QB3"),
-    (300, 1200, GR, "QB4"),
-    (2700, 400, GR, "QJ1"),
-    (2555, 515, RD, "QJ2"),
-    (2555, 1085, GR, "QJ3"),
-    (2700, 1200, RD, "QJ4"),
-    (670, 100, RD, "LB1"),
-    (956, 400, GR, "LB2"),
-    (1100, 800, RD, "LB3"),
-    (1270, 1200, GR, "LB4"),
-    (2330, 100, GR, "LJ1"),
-    (2044, 400, RD, "LJ2"),
-    (1900, 800, GR, "LJ3"),
-    (1730, 1200, RD, "LJ4"),
-    (1005, 1955, RD, "CB1"),
-    (1065, 1655, GR, "CB2"),
-    (1335, 1655, RD, "CB3"),
-    (1395, 1955, GR, "CB4"),
-    (1605, 1955, RD, "CJ1"),
-    (1665, 1655, GR, "CJ2"),
-    (1935, 1655, RD, "CJ3"),
-    (1995, 1955, GR, "CJ4"),
-]
-# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMO.
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
 # La valeur des coordonnées est en CTC.
