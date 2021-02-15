@@ -152,27 +152,29 @@ def drawboard():
         convert_CMOtoCTC(2600, "x"),
         convert_CMOtoCTC(1100, "y"), 400*ECHELLE, 30*ECHELLE, GR
     )
-    
+
     # dessiner les zones de couleurs des bases rochers
     dessin_Zone_Couleur(
-        -450*ECHELLE,
-        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+        convert_CMOtoCTC(1050, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, GR
     )
     dessin_Zone_Couleur(
-        -250*ECHELLE,
-        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+        convert_CMOtoCTC(1250, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, RD
     )
     dessin_Zone_Couleur(
-        150*ECHELLE,
-        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, GR
+        convert_CMOtoCTC(1650, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, GR
     )
     dessin_Zone_Couleur(
-        350*ECHELLE,
-        -1000*ECHELLE, 100*ECHELLE, 300*ECHELLE, RD
+        convert_CMOtoCTC(1850, "x"),
+        convert_CMOtoCTC(2000, "y"), 100*ECHELLE, 300*ECHELLE, RD
     )
 
-    # *ECHELLE
-    dessin_Zone(-300, -200, 600, 400, BLC)  # Dessine le contour noir en CTC
+    # Dessine le contour noir en CTC
+    dessin_Zone(convert_CMOtoCTC(0, "x"),
+        convert_CMOtoCTC(2000, "y"), 600, 400, BLC
+    )
     dessin_Gobies_init()
     turtle.title("Simulation de la coupe")
     turtle.home()   # Retourne en 0;0 CTC
