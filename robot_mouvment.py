@@ -30,13 +30,17 @@ def poser_gobi(CHOIXPINCE):
         init_board.dessin_Cercle(
         pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
         )
+        LISTEGOBI.append((STATE_PINCE1))
         STATE_PINCE1 = None
+        reculer(100)
     if CHOIXPINCE == 2:
         pince2.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
         pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
         )
+        LISTEGOBI.append((STATE_PINCE2))
         STATE_PINCE2 = None
+        reculer(100)
     else:
         pass
 
@@ -120,6 +124,18 @@ def avancer(distance):
         calculer_pos_pinces()
         prise_gobi()
 
+
+def reculer(distance):
+        """
+        Cette fonction prend en paramètre une distance en mm
+        Il fait reculer l'objet tBlue de "distance" et associant les pinces aux
+        mouvement et vérifie si les pinces capturent un gobi.
+        """
+        # Met la distance en mm à l'échelle CTC et arondit
+        distance = round(distance*ECHELLE)
+        for i in range(distance):
+            tBlue.backward(1)
+            calculer_pos_pinces()
 
 def rotate(sens, valeur):
     """

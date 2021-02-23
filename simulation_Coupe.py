@@ -24,12 +24,18 @@ robot_mouvment.rotate(LFT, 45)
 robot_mouvment.avancer(700)
 robot_mouvment.rotate(LFT, 180)
 robot_mouvment.avancer(900)
+print(LISTEGOBI)
+print("\n")
 robot_mouvment.rotate(LFT, 90)
 robot_mouvment.avancer(250)
 robot_mouvment.poser_gobi(2)
 robot_mouvment.rotate(LFT, 180)
-robot_mouvment.avancer(350)
+robot_mouvment.avancer(250)
 robot_mouvment.poser_gobi(1)
+print(LISTEGOBI)
+print("\n")
+robot_mouvment.avancer(100)
+
 
 
 
