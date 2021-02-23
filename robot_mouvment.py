@@ -33,7 +33,6 @@ def poser_gobi(CHOIXPINCE):
         STATE_PINCE1 = None
     if CHOIXPINCE == 2:
         pince2.fillcolor(255, 255, 255)
-        pince1.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
         pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
         )
