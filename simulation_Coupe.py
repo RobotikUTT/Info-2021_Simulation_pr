@@ -1,4 +1,4 @@
-# Ici on a la Simulation j'écris 
+# Ici on a la Simulation j'écris
 
 from random import randint
 import turtle
@@ -16,9 +16,21 @@ init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
 
-robot_mouvment.rotate(RGH, 45)
-robot_mouvment.avancer(100)
 robot_mouvment.rotate(LFT, 45)
-robot_mouvment.avancer(2000)
+robot_mouvment.avancer(180)
+robot_mouvment.rotate(RGH, 90)
+robot_mouvment.avancer(80)
+robot_mouvment.rotate(LFT, 45)
+robot_mouvment.avancer(1000)
+robot_mouvment.rotate(LFT, 180)
+robot_mouvment.avancer(1200)
+robot_mouvment.rotate(LFT, 90)
+robot_mouvment.avancer(250)
+robot_mouvment.poser_gobi(2)
+robot_mouvment.rotate(LFT, 180)
+robot_mouvment.avancer(150)
+
+
+
 
 turtle.mainloop()

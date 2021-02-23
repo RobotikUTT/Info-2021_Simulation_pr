@@ -11,11 +11,38 @@ import init_board
 ###############################################################################
 STATE_PINCE1 = None
 STATE_PINCE2 = None         # None signifie qu'elle est vide.
+turtle.colormode(0xFF)
 ###############################################################################
 
 # coordonnées turtle centrée = CTC
 # coordonnées mm centrée = CMC
 # coordonnées mm offset = CMO
+
+def poser_gobi(CHOIXPINCE):
+    """
+    Cette fonction va définir la position des zones vertes et rouges pour
+    déposer les gobies. La fonction va ensuite tester si la position des pinces
+    pleines correspond avec celle des zones de dépots.
+    """
+    global STATE_PINCE1, STATE_PINCE2
+    if CHOIXPINCE == 1:
+        pince1.fillcolor(255, 255, 255)
+        init_board.dessin_Cercle(
+        pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
+        )
+        STATE_PINCE1 = None
+    if CHOIXPINCE == 2:
+        pince2.fillcolor(255, 255, 255)
+        pince1.fillcolor(255, 255, 255)
+        init_board.dessin_Cercle(
+        pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
+        )
+        STATE_PINCE2 = None
+    else:
+        pass
+
+
+
 
 def calculer_pos_pinces():
     """
@@ -137,8 +164,6 @@ def init_robot():
         convert_CMOtoCTC(ORIGINtBy, "y")
     )
     calculer_pos_pinces()
-    print(pince1.position())
-    print(pince2.position())
 
 
 def prise_gobi():
@@ -174,7 +199,6 @@ def prise_gobi():
         # Si prise = true alors la pince se trouve sur un gobi
         if prise:
             STATE_PINCE1 = LISTEGOBI[compt]
-            print(STATE_PINCE1)
             # La pince prend la couleur du gobi
             pince1.fillcolor(STATE_PINCE1[2])
             # On efface le gobi avec la couleur du fond
@@ -183,6 +207,7 @@ def prise_gobi():
                 convert_CMOtoCTC(LISTEGOBI[compt][1], "y"),
                 AQA
             )
+            del LISTEGOBI[compt]
     if STATE_PINCE2 is None:
         prise = False
         compt = 0
@@ -201,13 +226,13 @@ def prise_gobi():
                 compt = compt + 1
         if prise:
             STATE_PINCE2 = LISTEGOBI[compt]
-            print(STATE_PINCE2)
-            pince1.fillcolor(STATE_PINCE2[2])
+            pince2.fillcolor(STATE_PINCE2[2])
             init_board.dessin_Cercle(
                 convert_CMOtoCTC(LISTEGOBI[compt][0], "x"),
                 convert_CMOtoCTC(LISTEGOBI[compt][1], "y"),
                 AQA
             )
+            del LISTEGOBI[compt]
 ###############################################################################
 # Initialise les tBlue et ses pinces
 
