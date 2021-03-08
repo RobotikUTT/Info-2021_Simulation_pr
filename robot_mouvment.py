@@ -30,7 +30,11 @@ def poser_gobi(CHOIXPINCE):
         init_board.dessin_Cercle(
         pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
         )
-        LISTEGOBI.append((STATE_PINCE1))
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince1.xcor(), "x"),
+            convert_CTCtoCMO(pince1.ycor(), "y"),
+            STATE_PINCE1[2], STATE_PINCE1[3])
+        )
         STATE_PINCE1 = None
         reculer(100)
     if CHOIXPINCE == 2:
@@ -38,7 +42,11 @@ def poser_gobi(CHOIXPINCE):
         init_board.dessin_Cercle(
         pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
         )
-        LISTEGOBI.append((STATE_PINCE2))
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince2.xcor(), "x"),
+            convert_CTCtoCMO(pince2.ycor(), "y"),
+            STATE_PINCE2[2], STATE_PINCE2[3])
+        )
         STATE_PINCE2 = None
         reculer(100)
     else:
@@ -59,9 +67,9 @@ def calculer_pos_pinces():
     v + une rotation.
     Les pinces se trouvent alors toujours à la tête de ces vecteurs p1 et p2.
     """
-    xTB = tBlue.xcor()  # Valeur x de la coordonné de tBlue en CTC
-    yTB = tBlue.ycor()  # Valeur y de la coordonné de tBlue en CTC
-    alphTB = tBlue.heading()    # Donne un angle en degré entre 0 et 360
+    xTB = Robotik.xcor()  # Valeur x de la coordonné de Robotik en CTC
+    yTB = Robotik.ycor()  # Valeur y de la coordonné de Robotik en CTC
+    alphTB = Robotik.heading()    # Donne un angle en degré entre 0 et 360
     # On définit le vecteur vision
     # Dans les 4 cas suivant le vecteur prend des valeurs remarquable
     if (alphTB == 0) or (alphTB == 360):
@@ -114,13 +122,13 @@ def calculer_pos_pinces():
 def avancer(distance):
     """
     Cette fonction prend en paramètre une distance en mm
-    Il fait avancer l'objet tBlue de "distance" et associant les pinces aux
+    Il fait avancer l'objet Robotik de "distance" et associant les pinces aux
     mouvement et vérifie si les pinces capturent un gobi.
     """
     # Met la distance en mm à l'échelle CTC et arondit
     distance = round(distance*ECHELLE)
     for i in range(distance):
-        tBlue.forward(1)
+        Robotik.forward(1)
         calculer_pos_pinces()
         prise_gobi()
 
@@ -128,29 +136,29 @@ def avancer(distance):
 def reculer(distance):
         """
         Cette fonction prend en paramètre une distance en mm
-        Il fait reculer l'objet tBlue de "distance" et associant les pinces aux
+        Il fait reculer l'objet Robotik de "distance" et associant les pinces aux
         mouvement et vérifie si les pinces capturent un gobi.
         """
         # Met la distance en mm à l'échelle CTC et arondit
         distance = round(distance*ECHELLE)
         for i in range(distance):
-            tBlue.backward(1)
+            Robotik.backward(1)
             calculer_pos_pinces()
 
 def rotate(sens, valeur):
     """
     sens est soit égal à "left" soit égal à "right"
     valeur est est degré.
-    tBlue va tourner dans le sens et d'une valeur donnée
+    Robotik va tourner dans le sens et d'une valeur donnée
     """
     if sens == "left":
         for i in range(valeur):
-            tBlue.left(1)
+            Robotik.left(1)
             calculer_pos_pinces()
             prise_gobi()
     elif sens == "right":
         for i in range(valeur):
-            tBlue.right(1)
+            Robotik.right(1)
             calculer_pos_pinces()
             prise_gobi()
 
@@ -160,10 +168,10 @@ def init_robot():
     Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
     pinces.
     """
-    tBlue.shape("square")
-    tBlue.shapesize(2.2, 2.2, 2.2)
-    tBlue.penup()
-    tBlue.fillcolor(BOTCOLOR)
+    Robotik.shape("square")
+    Robotik.shapesize(2.2, 2.2, 2.2)
+    Robotik.penup()
+    Robotik.fillcolor(BOTCOLOR)
 
     pince1.shapesize(1, 1, 1)
     pince1.penup()
@@ -175,7 +183,7 @@ def init_robot():
     pince2.fillcolor("white")
     pince2.shape("circle")
 
-    tBlue.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
+    Robotik.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
         convert_CMOtoCTC(ORIGINtBy, "y")
     )
     calculer_pos_pinces()
@@ -249,10 +257,10 @@ def prise_gobi():
             )
             del LISTEGOBI[compt]
 ###############################################################################
-# Initialise les tBlue et ses pinces
+# Initialise les Robotik et ses pinces
 
 
-tBlue = turtle.Turtle()     # Crée le robot
+Robotik = turtle.Turtle()     # Crée le robot
 pince1 = turtle.Turtle()    # Crée la pince1
 pince2 = turtle.Turtle()    # Crée la pince2
 

@@ -80,10 +80,10 @@ ENTRAX = 117.95
 # Angle entre le vecteur robot et les vecteurs pinces
 VALEUR_ROTATION_P1P2 = 30.0
 # Origine du robot en CMO
-ORIGINtBx = 250 # En CMO
-ORIGINtBy = 800 # En CMO
-DIAMETREGOBI = 75 # En mm
-LONGUER_ACCEPTATION_PINCES = 50 # En mm
+ORIGINtBx = 250  # En CMO
+ORIGINtBy = 800  # En CMO
+DIAMETREGOBI = 75  # En mm
+LONGUER_ACCEPTATION_PINCES = 50  # En mm
 ###############################################################################
 
 # La liste va de 0 à 23, avec 0 à 3 dans les sous toples
