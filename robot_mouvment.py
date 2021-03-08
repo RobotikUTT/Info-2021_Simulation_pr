@@ -30,7 +30,11 @@ def poser_gobi(CHOIXPINCE):
         init_board.dessin_Cercle(
         pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
         )
-        LISTEGOBI.append((STATE_PINCE1))
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince1.xcor(), "x"),
+            convert_CTCtoCMO(pince1.ycor(), "y"),
+            STATE_PINCE1[2], STATE_PINCE1[3])
+        )
         STATE_PINCE1 = None
         reculer(100)
     if CHOIXPINCE == 2:
@@ -38,7 +42,11 @@ def poser_gobi(CHOIXPINCE):
         init_board.dessin_Cercle(
         pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
         )
-        LISTEGOBI.append((STATE_PINCE2))
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince2.xcor(), "x"),
+            convert_CTCtoCMO(pince2.ycor(), "y"),
+            STATE_PINCE2[2], STATE_PINCE2[3])
+        )
         STATE_PINCE2 = None
         reculer(100)
     else:
