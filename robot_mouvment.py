@@ -103,8 +103,8 @@ def avancer(distance):
 def reculer(distance):
         """
         Cette fonction prend en paramètre une distance en mm
-        Il fait reculer l'objet Robotik de "distance" et associant les pinces aux
-        mouvement et vérifie si les pinces capturent un gobi.
+        Il fait reculer l'objet Robotik de "distance" et associant
+        les pinces aux mouvement et vérifie si les pinces capturent un gobi.
         """
         # Met la distance en mm à l'échelle CTC et arondit
         distance = round(distance*ECHELLE)

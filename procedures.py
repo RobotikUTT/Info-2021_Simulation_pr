@@ -9,8 +9,20 @@ import init_board
 import robot_mouvment
 
 ###############################################################################
-""" Ce fichier contien"""
+""" Ce fichier contient les procédures de déplacements complexes"""
 ###############################################################################
+
+def goto(xTarget, yTarget, angle):
+    """
+    Cette fonction permet de donner une postion CMO et Robotik s'y rend.
+    xTarget et yTarget sont les coordonnées du point visé
+    angle est l'angle final à la fin du mouvement.
+    """
+    distX = 0
+    distY = 0
+    distXRed = 0
+    phi = 0
+    phiRed = 0
 
 def parcour1():
     robot_mouvment.rotate(LFT, 45)
