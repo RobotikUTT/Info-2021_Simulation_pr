@@ -6,7 +6,6 @@ from constantes import (
     ORIGINtBy, DIAMETREGOBI
 )
 
-
 def dessin_Gobies_init():
     """
     Dessine l'ensemble des gobies de la table (à ne faire qu'une fois). Dans

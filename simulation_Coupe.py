@@ -1,5 +1,3 @@
-# Ici on a la Simulation j'écris
-
 from random import randint
 import turtle
 from constantes import (
@@ -9,43 +7,17 @@ from constantes import (
 )
 import init_board
 import robot_mouvment
+import procedures
 
+###############################################################################
+""" Ce fichier est l'executable de la simulation, c'est ici que le code final
+est compilé pour la simulation """
+###############################################################################
 
 # Crée le plateau de jeu
 init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
+procedures.parcour1()
 
-robot_mouvment.rotate(LFT, 45)
-robot_mouvment.avancer(180)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.rotate(RGH, 90)
-robot_mouvment.avancer(80)
-robot_mouvment.rotate(LFT, 45)
-robot_mouvment.avancer(800)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.poser_gobi(2)
-robot_mouvment.reculer(500)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.avancer(600)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.avancer(100)
-robot_mouvment.rotate(LFT, 180)
-robot_mouvment.avancer(900)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.rotate(LFT, 90)
-robot_mouvment.avancer(250)
-robot_mouvment.poser_gobi(2)
-print(LISTEGOBI)
-print("\n")
-robot_mouvment.rotate(LFT, 180)
-robot_mouvment.avancer(250)
-robot_mouvment.poser_gobi(1)
-print(LISTEGOBI)
-print("\n")
 turtle.mainloop()
