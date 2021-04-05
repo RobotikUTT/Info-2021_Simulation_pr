@@ -3,7 +3,9 @@
 # coordonnées mm offset = CMO
 
 ###############################################################################
-
+""" Ce fichier contient les contantes et les fonctions de conversions de
+coordonné """
+###############################################################################
 
 def convert_CMOtoCTC(val, axe):
     if (axe == "x"):
