@@ -9,51 +9,17 @@ from constantes import (
 import init_board
 
 ###############################################################################
+"""
+Ce fichier contient les fonctions relatives au mouvements
+et actions du robot
+"""
+###############################################################################
+
 STATE_PINCE1 = None
 STATE_PINCE2 = None         # None signifie qu'elle est vide.
 turtle.colormode(0xFF)
+
 ###############################################################################
-
-# coordonnées turtle centrée = CTC
-# coordonnées mm centrée = CMC
-# coordonnées mm offset = CMO
-
-def poser_gobi(CHOIXPINCE):
-    """
-    Cette fonction va définir la position des zones vertes et rouges pour
-    déposer les gobies. La fonction va ensuite tester si la position des pinces
-    pleines correspond avec celle des zones de dépots.
-    """
-    global STATE_PINCE1, STATE_PINCE2
-    if CHOIXPINCE == 1:
-        pince1.fillcolor(255, 255, 255)
-        init_board.dessin_Cercle(
-        pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
-        )
-        LISTEGOBI.append((
-            convert_CTCtoCMO(pince1.xcor(), "x"),
-            convert_CTCtoCMO(pince1.ycor(), "y"),
-            STATE_PINCE1[2], STATE_PINCE1[3])
-        )
-        STATE_PINCE1 = None
-        reculer(100)
-    if CHOIXPINCE == 2:
-        pince2.fillcolor(255, 255, 255)
-        init_board.dessin_Cercle(
-        pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
-        )
-        LISTEGOBI.append((
-            convert_CTCtoCMO(pince2.xcor(), "x"),
-            convert_CTCtoCMO(pince2.ycor(), "y"),
-            STATE_PINCE2[2], STATE_PINCE2[3])
-        )
-        STATE_PINCE2 = None
-        reculer(100)
-    else:
-        pass
-
-
-
 
 def calculer_pos_pinces():
     """
@@ -118,6 +84,7 @@ def calculer_pos_pinces():
     pince2.penup()
     pince2.goto(xp2, yp2)
 
+###############################################################################
 
 def avancer(distance):
     """
@@ -162,32 +129,7 @@ def rotate(sens, valeur):
             calculer_pos_pinces()
             prise_gobi()
 
-
-def init_robot():
-    """
-    Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
-    pinces.
-    """
-    Robotik.shape("square")
-    Robotik.shapesize(2.2, 2.2, 2.2)
-    Robotik.penup()
-    Robotik.fillcolor(BOTCOLOR)
-
-    pince1.shapesize(1, 1, 1)
-    pince1.penup()
-    pince1.fillcolor("white")
-    pince1.shape("circle")
-
-    pince2.shapesize(1, 1, 1)
-    pince2.penup()
-    pince2.fillcolor("white")
-    pince2.shape("circle")
-
-    Robotik.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
-        convert_CMOtoCTC(ORIGINtBy, "y")
-    )
-    calculer_pos_pinces()
-
+###############################################################################
 
 def prise_gobi():
     """
@@ -256,9 +198,68 @@ def prise_gobi():
                 AQA
             )
             del LISTEGOBI[compt]
-###############################################################################
-# Initialise les Robotik et ses pinces
 
+def poser_gobi(CHOIXPINCE):
+    """
+    Cette fonction va définir la position des zones vertes et rouges pour
+    déposer les gobies. La fonction va ensuite tester si la position des pinces
+    pleines correspond avec celle des zones de dépots.
+    """
+    global STATE_PINCE1, STATE_PINCE2
+    if CHOIXPINCE == 1:
+        pince1.fillcolor(255, 255, 255)
+        init_board.dessin_Cercle(
+        pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
+        )
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince1.xcor(), "x"),
+            convert_CTCtoCMO(pince1.ycor(), "y"),
+            STATE_PINCE1[2], STATE_PINCE1[3])
+        )
+        STATE_PINCE1 = None
+        reculer(100)
+    if CHOIXPINCE == 2:
+        pince2.fillcolor(255, 255, 255)
+        init_board.dessin_Cercle(
+        pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
+        )
+        LISTEGOBI.append((
+            convert_CTCtoCMO(pince2.xcor(), "x"),
+            convert_CTCtoCMO(pince2.ycor(), "y"),
+            STATE_PINCE2[2], STATE_PINCE2[3])
+        )
+        STATE_PINCE2 = None
+        reculer(100)
+    else:
+        pass
+
+###############################################################################
+
+# Initialise le Robotik et ses pinces
+def init_robot():
+    """
+    Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
+    pinces.
+    """
+    Robotik.shape("square")
+    Robotik.shapesize(2.2, 2.2, 2.2)
+    Robotik.penup()
+    Robotik.fillcolor(BOTCOLOR)
+
+    pince1.shapesize(1, 1, 1)
+    pince1.penup()
+    pince1.fillcolor("white")
+    pince1.shape("circle")
+
+    pince2.shapesize(1, 1, 1)
+    pince2.penup()
+    pince2.fillcolor("white")
+    pince2.shape("circle")
+
+    Robotik.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
+        convert_CMOtoCTC(ORIGINtBy, "y")
+    )
+    calculer_pos_pinces()
 
 Robotik = turtle.Turtle()     # Crée le robot
 pince1 = turtle.Turtle()    # Crée la pince1

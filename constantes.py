@@ -1,13 +1,17 @@
-# coordonnées turtle centrée = CTC
-# coordonnées mm centrée = CMC
-# coordonnées mm offset = CMO
-
 ###############################################################################
-""" Ce fichier contient les contantes et les fonctions de conversions de
-coordonné """
+"""
+Ce fichier contient les contantes et les fonctions de conversions de
+coordonné.
+Il y a trois types de coordonnés dans ce projet :
+    CTC: les coordonnés en language turtle, centrer au centre de la table
+    CMC: les coordonnés en mm à échelle de la table centrée
+    CMO: les coordonnés en mm à échelle et avec l'origine identique à la doc
+        de la coupe
+"""
 ###############################################################################
 
 def convert_CMOtoCTC(val, axe):
+    """Convertit une position CMO en CTC"""
     if (axe == "x"):
         if (val == 1500):
             return (0)
@@ -35,6 +39,7 @@ def convert_CMOtoCTC(val, axe):
 
 
 def convert_CTCtoCMO(val, axe):
+    """Convertit une position CTC en CMO"""
     if (axe == "x"):
         if (val == 0):
             return (1500)
@@ -60,9 +65,7 @@ def convert_CTCtoCMO(val, axe):
             else:
                 return((-val)/ECHELLE+1000)
 
-
 ###############################################################################
-
 
 GR = (0, 166, 0)                    # Vert
 RD = (229, 0, 0)                    # Rouge
@@ -86,11 +89,12 @@ ORIGINtBx = 250  # En CMO
 ORIGINtBy = 800  # En CMO
 DIAMETREGOBI = 75  # En mm
 LONGUER_ACCEPTATION_PINCES = 50  # En mm
+
 ###############################################################################
 
-# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMO.
 LISTEGOBI = [
+    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+    La valeur des coordonnées est en CMO."""
     (300, 400, RD, "QB1"),
     (445, 515, GR, "QB2"),
     (445, 1085, RD, "QB3"),
@@ -117,9 +121,9 @@ LISTEGOBI = [
     (1995, 1955, GR, "CJ4"),
 ]
 
-# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CMC.
 LISTEGOBI2 = [
+    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+    La valeur des coordonnées est en CMC."""
     (-1200, 600, RD, "QB1"),
     (-1055, 485, GR, "QB2"),
     (-1055, -85, RD, "QB3"),
@@ -146,9 +150,9 @@ LISTEGOBI2 = [
     (495, -955, GR, "CJ4"),
 ]
 
-# La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-# La valeur des coordonnées est en CTC.
 LISTEGOBI3 = [
+    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+    La valeur des coordonnées est en CTC."""
     (-240, 120, RD, "QB1"),
     (-211, 97, GR, "QB2"),
     (-211, -17, RD, "QB3"),

@@ -6,18 +6,9 @@ from constantes import (
     ORIGINtBy, DIAMETREGOBI
 )
 
-def dessin_Gobies_init():
-    """
-    Dessine l'ensemble des gobies de la table (à ne faire qu'une fois). Dans
-    l'état les éléments de la liste sont en unité turtle centré donc on applique
-    juste ECHELLE.
-    """
-    for i in range(0, 24):
-        dessin_Cercle(
-            convert_CMOtoCTC(LISTEGOBI[i][0], "x"),
-            convert_CMOtoCTC(LISTEGOBI[i][1], "y"),
-            LISTEGOBI[i][2]
-        )
+###############################################################################
+"""Ce fichier contient les fonctions pour dessiner la table et les gobies"""
+###############################################################################
 
 def dessin_Cercle(x, y, color):
     """
@@ -63,7 +54,6 @@ def dessin_Zone_Couleur(x, y, long, large, color):
     turtle.left(90)
     turtle.end_fill()
 
-
 def dessin_Zone(x, y, long, large, color):
     # long : longeur sur l'axe des x en CTC
     # large : largeur sur l'axe des y en CTC
@@ -86,6 +76,20 @@ def dessin_Zone(x, y, long, large, color):
     turtle.penup()
     turtle.pen(pencolor="black")
 
+###############################################################################
+
+def dessin_Gobies_init():
+    """
+    Dessine l'ensemble des gobies de la table (à ne faire qu'une fois). Dans
+    l'état les éléments de la liste sont en unité turtle centré donc on applique
+    juste ECHELLE.
+    """
+    for i in range(0, 24):
+        dessin_Cercle(
+            convert_CMOtoCTC(LISTEGOBI[i][0], "x"),
+            convert_CMOtoCTC(LISTEGOBI[i][1], "y"),
+            LISTEGOBI[i][2]
+        )
 
 def drawboard():
     """
@@ -178,8 +182,8 @@ def drawboard():
     turtle.title("Simulation de la coupe")
     turtle.home()   # Retourne en 0;0 CTC
 
-
 ###############################################################################
+
 if __name__ == '__main__':
     # dessin_Gobies_init()
     drawboard()
