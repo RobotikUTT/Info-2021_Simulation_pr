@@ -92,9 +92,9 @@ LONGUER_ACCEPTATION_PINCES = 50  # En mm
 
 ###############################################################################
 
+"""La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+La valeur des coordonnées est en CMO."""
 LISTEGOBI = [
-    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-    La valeur des coordonnées est en CMO."""
     (300, 400, RD, "QB1"),
     (445, 515, GR, "QB2"),
     (445, 1085, RD, "QB3"),
@@ -121,9 +121,9 @@ LISTEGOBI = [
     (1995, 1955, GR, "CJ4"),
 ]
 
+"""La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+La valeur des coordonnées est en CMC."""
 LISTEGOBI2 = [
-    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-    La valeur des coordonnées est en CMC."""
     (-1200, 600, RD, "QB1"),
     (-1055, 485, GR, "QB2"),
     (-1055, -85, RD, "QB3"),
@@ -150,9 +150,9 @@ LISTEGOBI2 = [
     (495, -955, GR, "CJ4"),
 ]
 
+"""La liste va de 0 à 23, avec 0 à 3 dans les sous toples
+La valeur des coordonnées est en CTC."""
 LISTEGOBI3 = [
-    """La liste va de 0 à 23, avec 0 à 3 dans les sous toples
-    La valeur des coordonnées est en CTC."""
     (-240, 120, RD, "QB1"),
     (-211, 97, GR, "QB2"),
     (-211, -17, RD, "QB3"),

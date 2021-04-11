@@ -12,18 +12,6 @@ import robot_mouvment
 """ Ce fichier contient les procédures de déplacements complexes"""
 ###############################################################################
 
-def goto(xTarget, yTarget, angle):
-    """
-    Cette fonction permet de donner une postion CMO et Robotik s'y rend.
-    xTarget et yTarget sont les coordonnées du point visé
-    angle est l'angle final à la fin du mouvement.
-    """
-    distX = 0
-    distY = 0
-    distXRed = 0
-    phi = 0
-    phiRed = 0
-
 def parcour1():
     robot_mouvment.rotate(LFT, 45)
     robot_mouvment.avancer(180)
@@ -50,3 +38,7 @@ def parcour1():
     robot_mouvment.avancer(250)
     robot_mouvment.poser_gobi(1)
     print(LISTEGOBI)
+
+def parcourTest():
+    robot_mouvment.rotate_target(0)
+    robot_mouvment.goto(2000, 1200, 180)

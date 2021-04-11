@@ -114,8 +114,8 @@ def reculer(distance):
 
 def rotate(sens, valeur):
     """
-    sens est soit égal à "left" soit égal à "right"
-    valeur est est degré.
+    Sens est soit égal à "left" soit égal à "right"
+    valeur est degré.
     Robotik va tourner dans le sens et d'une valeur donnée
     """
     if sens == "left":
@@ -128,6 +128,103 @@ def rotate(sens, valeur):
             Robotik.right(1)
             calculer_pos_pinces()
             prise_gobi()
+
+def rotate_target(valeur):
+    """
+    Permet au robot de se positioner dans un angle précis par rapport à l'axe
+    de base.
+    Valeur doit être en degré entre 0 et 360.
+    """
+
+
+
+def goto(xTarget, yTarget, angle):
+    """
+    Cette fonction permet de donner une postion CMO et Robotik s'y rend.
+    xTarget et yTarget sont les coordonnées du point visé
+    angle est l'angle final à la fin du mouvement.
+    Robot permet de séléctioner quel élément du robot on met en point de repère.
+    """
+    xTarget = convert_CMOtoCTC(xTarget, "x")
+    yTarget = convert_CMOtoCTC(yTarget, "y")
+    #Distanc absolue entre les coordonnés selon y
+    distX = abs(xTarget - Robotik.xcor())
+    #Distanc absolue entre les coordonnés selon y
+    distY = abs(yTarget - Robotik.ycor())
+    #Distanc absolue réduite à 15% entre les coordonnés selon x
+    distXRed = (distX-((15*distX)/100))
+    phi = int(math.atan(distY/distX))
+    phiRed = (180*(math.atan(distY/distXRed)))/math.pi
+
+    print(xTarget)
+    print(yTarget)
+    print(Robotik.xcor())
+    print(Robotik.ycor())
+    print(distX)
+    print(distY)
+    print(distXRed)
+    print(phiRed)
+
+    if Robotik.xcor() > xTarget:
+        # The target is 'left' to Robotik
+        if Robotik.ycor() > yTarget:
+            # The target is 'left-down' to Robotik
+            rotate_target(180+phiRed)
+            avancer(math.sqrt(distXRed*distXRed+distY*distY)/ECHELLE)
+            rotate_target(180)
+            avancer((distX-distXRed)/ECHELLE)
+            rotate_target(angle)
+        elif Robotik.ycor() < yTarget:
+            # The target is 'left-up' to Robotik
+            rotate_target(180-phiRed)
+            avancer(math.sqrt(distXRed*distXRed+distY*distY)/ECHELLE)
+            rotate_target(180)
+            avancer((distX-distXRed)/ECHELLE)
+            rotate_target(angle)
+        else:
+            # The target and Robotik are on the same y value
+            rotate_target(180)
+            avancer(int(abs(xTarget-Robotik.xcor())))
+            rotate_target(angle)
+
+    elif Robotik.xcor() < xTarget:
+        # The target is 'right' to Robotik
+        if Robotik.ycor() > yTarget:
+            # The target is 'right-down' to Robotik
+            rotate_target(360-phiRed)
+            avancer(math.sqrt(distXRed*distXRed+distY*distY)/ECHELLE)
+            print(Robotik.heading())
+            rotate_target(0)
+            avancer((distX-distXRed)/ECHELLE)
+            rotate_target(angle)
+        elif Robotik.ycor() < yTarget:
+            # The target is 'right-up' to Robotik
+            rotate_target(phiRed)
+            avancer(math.sqrt(distXRed*distXRed+distY*distY)/ECHELLE)
+            rotate_target(0)
+            avancer((distX-distXRed)/ECHELLE)
+            rotate_target(angle)
+        else:
+            # The target and Robotik are on the same y value
+            rotate_target(0)
+            avancer(int(abs(xTarget-Robotik.xcor())))
+            rotate_target(angle)
+
+    else:
+        # The target and Robotik are on the same x value
+        if Robotik.ycor() > yTarget:
+            # The target is 'under' Robotik
+            rotate(RGH, 90)
+            avancer(int(abs(yTarget-Robotik.ycor())))
+            rotate_target(angle)
+        elif Robotik.ycor() < yTarget:
+            # The target is 'above' Robotik
+            rotate(LFT, 90)
+            avancer(int(abs(yTarget-Robotik.ycor())))
+            rotate_target(angle)
+        else:
+            rotate_target(angle)
+            return(1)   # Robotik is on the rigth place
 
 ###############################################################################
 
