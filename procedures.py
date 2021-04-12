@@ -40,5 +40,4 @@ def parcour1():
     print(LISTEGOBI)
 
 def parcourTest():
-    robot_mouvment.rotate_target(0)
     robot_mouvment.goto(2000, 1200, 180)

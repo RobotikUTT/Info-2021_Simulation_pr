@@ -129,12 +129,24 @@ def rotate(sens, valeur):
             calculer_pos_pinces()
             prise_gobi()
 
-def rotate_target(valeur):
+def rotate_target(angle):
     """
     Permet au robot de se positioner dans un angle précis par rapport à l'axe
     de base.
     Valeur doit être en degré entre 0 et 360.
     """
+    delta = angle - Robotik.heading()
+    if delta <= 0:
+        if delta > 180:
+            rotate(RGH, int(360-delta))
+        else:
+            rotate(LFT, int(delta))
+    else:
+        if delta < -180:
+            rotate(LFT, int(360+delta))
+        else:
+            rotate(RGH, int(-delta))
+
 
 
 
@@ -339,7 +351,7 @@ def init_robot():
     pinces.
     """
     Robotik.shape("square")
-    Robotik.shapesize(2.2, 2.2, 2.2)
+    Robotik.shapesize(2.4, 2.4, 1)
     Robotik.penup()
     Robotik.fillcolor(BOTCOLOR)
 
