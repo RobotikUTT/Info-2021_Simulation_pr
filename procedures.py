@@ -9,8 +9,9 @@ import init_board
 import robot_mouvment
 
 ###############################################################################
-""" Ce fichier contien"""
+""" Ce fichier contient les procédures de déplacements complexes"""
 ###############################################################################
+
 
 def parcour1():
     robot_mouvment.rotate(LFT, 45)
@@ -38,3 +39,11 @@ def parcour1():
     robot_mouvment.avancer(250)
     robot_mouvment.poser_gobi(1)
     print(LISTEGOBI)
+
+
+def parcourTest():
+    robot_mouvment.goto(956, 400, tt=robot_mouvment.pince1)
+    robot_mouvment.goto(1900, 800, tt=robot_mouvment.pince2)
+    robot_mouvment.goto(ORIGINtBx, ORIGINtBy)
+    robot_mouvment.goto(ORIGINtBx, 515, tt=robot_mouvment.pince1)
+    robot_mouvment.poser_gobi(robot_mouvment.pince1)
