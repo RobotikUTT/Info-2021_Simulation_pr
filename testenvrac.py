@@ -25,5 +25,6 @@ def dessin_Gobies_init2():
             LISTEGOBI[i][2]
         )
 
+
 rotate_target(86)
 turtle.mainloop()
