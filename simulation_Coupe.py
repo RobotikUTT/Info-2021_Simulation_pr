@@ -18,7 +18,7 @@ est compilé pour la simulation """
 init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
-# procedures.parcour1()
-procedures.parcourTest()
+# process_instruction()
+read_instruction(process_instruction())
 
 turtle.mainloop()
