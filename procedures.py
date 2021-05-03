@@ -13,11 +13,45 @@ import robot_mouvment
 ###############################################################################
 
 
-def convert_instruction():
+def convert_instruction(number):
     """
     Ce fichier convertit en fichier .c les intructions du fichier 'pySim.txt'.
     Ce fichier sera lu par la carte arduino.
     """
+
+    # Constantes pour l'écriture du fichier.c
+    # nom du fichier : instructionList.# HACK:
+    COMMENTSTRING = (
+        "/*\n * \ file instructionList.h\n * \created by the simulation\n*/"
+    )
+    HEADSTRING = "#ifndef INSTRUCTIONLIST_H\n#define INSTRUCTIONLIST_H"
+    FOOTSTRING = "#endif // INSTRUCTIONLIST_H"
+
+    declare1 = "int nbrGoto = "
+    declare2 = "int golist = ["
+
+    ptrfile = open("instructionList.h", "w")
+    ptrfile.write(COMMENTSTRING)
+    ptrfile.write("\n\n\n")
+    ptrfile.write(HEADSTRING)
+    ptrfile.write("\n\n")
+    ptrfile.write(declare2)
+
+    ptrfileread = open("pySim.txt", "r")
+    for i in range(number*2-1):
+        x = ptrfileread.readline()
+        x = x[:-1]
+        ptrfile.write(x)
+        ptrfile.write(", ")
+    x = ptrfileread.readline()
+    x = x[:-1]
+    ptrfile.write(x)
+    ptrfile.write("];\n")
+    ptrfile.write(declare1)
+    ptrfile.write(str(number*2))
+    ptrfile.write(";\n\n")
+    ptrfile.write(FOOTSTRING)
+
 
 
 def process_instruction():
@@ -59,43 +93,3 @@ def read_instruction(nbrCoord):
             y = int(y)
             print(y)
             robot_mouvment.goto(x, y)
-
-
-def parcour1():
-    robot_mouvment.rotate(LFT, 45)
-    robot_mouvment.avancer(180)
-    print(LISTEGOBI)
-    robot_mouvment.rotate(RGH, 90)
-    robot_mouvment.avancer(80)
-    robot_mouvment.rotate(LFT, 45)
-    robot_mouvment.avancer(800)
-    print(LISTEGOBI)
-    robot_mouvment.poser_gobi(2)
-    robot_mouvment.reculer(500)
-    print(LISTEGOBI)
-    robot_mouvment.avancer(600)
-    print(LISTEGOBI)
-    robot_mouvment.avancer(100)
-    robot_mouvment.rotate(LFT, 180)
-    robot_mouvment.avancer(900)
-    print(LISTEGOBI)
-    robot_mouvment.rotate(LFT, 90)
-    robot_mouvment.avancer(250)
-    robot_mouvment.poser_gobi(2)
-    print(LISTEGOBI)
-    robot_mouvment.rotate(LFT, 180)
-    robot_mouvment.avancer(250)
-    robot_mouvment.poser_gobi(1)
-    print(LISTEGOBI)
-
-
-def parcourTest():
-    """
-    robot_mouvment.goto(956, 400, tt=robot_mouvment.pince1)
-    robot_mouvment.goto(1900, 800, tt=robot_mouvment.pince2)
-    robot_mouvment.goto(ORIGINtBx, ORIGINtBy)
-    robot_mouvment.goto(ORIGINtBx, 515, tt=robot_mouvment.pince1)
-    robot_mouvment.poser_gobi(robot_mouvment.pince1)
-    """
-    # process_instruction()
-    read_instruction(process_instruction())

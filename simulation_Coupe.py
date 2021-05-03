@@ -19,6 +19,8 @@ init_board.drawboard()
 # Initialise le robot et les pinces
 robot_mouvment.init_robot()
 # process_instruction()
-procedures.read_instruction(procedures.process_instruction())
+x = procedures.process_instruction()
+procedures.read_instruction(x)
+procedures.convert_instruction(x)
 
 turtle.mainloop()
