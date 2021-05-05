@@ -10,6 +10,8 @@ Il y a trois types de coordonnés dans ce projet :
 """
 ###############################################################################
 
+import classrobotik
+
 def convert_CMOtoCTC(val, axe):
     """Convertit une position CMO en CTC"""
     if (axe == "x"):
