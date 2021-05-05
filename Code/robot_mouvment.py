@@ -4,9 +4,10 @@ import math
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
     VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
-    ORIGINtBy, LONGUER_ACCEPTATION_PINCES
+    ORIGINtBy, LONGUER_ACCEPTATION_PINCES,
 )
 import init_board
+import classrobotik
 
 ###############################################################################
 """
@@ -19,13 +20,13 @@ STATE_PINCE1 = None
 STATE_PINCE2 = None         # None signifie qu'elle est vide.
 turtle.colormode(0xFF)
 
-Robotik = turtle.Turtle()     # Crée le robot
-pince1 = turtle.Turtle()    # Crée la pince1
-pince2 = turtle.Turtle()    # Crée la pince2
+# Robotik = turtle.Turtle()     # Crée le robot
+# pince1 = turtle.Turtle()    # Crée la pince1
+# pince2 = turtle.Turtle()    # Crée la pince2
 
 ###############################################################################
 
-def calculer_pos_pinces():
+def calculer_pos_pinces(bot):
     """
     On peut retrouver différentes informations à l'aide des différentes
     fonctions turtle (lien) :
@@ -37,9 +38,9 @@ def calculer_pos_pinces():
     v + une rotation.
     Les pinces se trouvent alors toujours à la tête de ces vecteurs p1 et p2.
     """
-    xTB = Robotik.xcor()  # Valeur x de la coordonné de Robotik en CTC
-    yTB = Robotik.ycor()  # Valeur y de la coordonné de Robotik en CTC
-    alphTB = Robotik.heading()    # Donne un angle en degré entre 0 et 360
+    xTB = Robotik.body.xcor()  # Valeur x de la coordonné de Robotik.body en CTC
+    yTB = Robotik.body.ycor()  # Valeur y de la coordonné de Robotik.body en CTC
+    alphTB = Robotik.body.heading()    # Donne un angle en degré entre 0 et 360
     # On définit le vecteur vision
     # Dans les 4 cas suivant le vecteur prend des valeurs remarquable
     if (alphTB == 0) or (alphTB == 360):
@@ -83,23 +84,23 @@ def calculer_pos_pinces():
     yp1 = p1[1] + yTB
     xp2 = p2[0] + xTB
     yp2 = p2[1] + yTB
-    pince1.penup()
-    pince1.goto(xp1, yp1)
-    pince2.penup()
-    pince2.goto(xp2, yp2)
+    Robotik.pince1.penup()
+    Robotik.pince1.goto(xp1, yp1)
+    Robotik.pince2.penup()
+    Robotik.pince2.goto(xp2, yp2)
 
 ###############################################################################
 
 def avancer(distance):
     """
     Cette fonction prend en paramètre une distance en mm
-    Il fait avancer l'objet Robotik de "distance" et associant les pinces aux
+    Il fait avancer l'objet Robotik.body de "distance" et associant les pinces aux
     mouvement et vérifie si les pinces capturent un gobi.
     """
     # Met la distance en mm à l'échelle CTC et arondit
     distance = round(distance*ECHELLE)
     for i in range(distance):
-        Robotik.forward(1)
+        Robotik.body.forward(1)
         calculer_pos_pinces()
         prise_gobi()
 
@@ -107,30 +108,30 @@ def avancer(distance):
 def reculer(distance):
         """
         Cette fonction prend en paramètre une distance en mm
-        Il fait reculer l'objet Robotik de "distance" et associant
+        Il fait reculer l'objet Robotik.body de "distance" et associant
         les pinces aux mouvement et vérifie si les pinces capturent un gobi.
         """
         # Met la distance en mm à l'échelle CTC et arondit
         distance = round(distance*ECHELLE)
         for i in range(distance):
-            Robotik.backward(1)
+            Robotik.body.backward(1)
             calculer_pos_pinces()
 
 def rotate(sens, valeur):
     """
     Sens est soit égal à "left" soit égal à "right"
     valeur est degré.
-    Robotik va tourner dans le sens et d'une valeur donnée
+    Robotik.body va tourner dans le sens et d'une valeur donnée
     """
     if sens == "left":
         for i in range(valeur):
-            Robotik.left(1)
+            Robotik.body.left(1)
             calculer_pos_pinces()
             # prise_gobi()
             # On dit que le robot ne peut prendre un gobi en tournant
     elif sens == "right":
         for i in range(valeur):
-            Robotik.right(1)
+            Robotik.body.right(1)
             calculer_pos_pinces()
             # prise_gobi()
             # On dit que le robot ne peut prendre un gobi en tournant
@@ -142,14 +143,14 @@ def rotate_target(angle):
     de base.
     Valeur doit être en degré entre 0 et 360.
     """
-    if Robotik.heading() < angle:
-        delta = angle - Robotik.heading()
+    if Robotik.body.heading() < angle:
+        delta = angle - Robotik.body.heading()
         if delta < 180:
             rotate(LFT,int(delta))
         else:
             rotate(RGH, int(360-delta))
-    elif Robotik.heading() > angle:
-        delta = Robotik.heading() - angle
+    elif Robotik.body.heading() > angle:
+        delta = Robotik.body.heading() - angle
         if delta < 180:
             rotate(RGH, int(delta))
         else:
@@ -158,9 +159,9 @@ def rotate_target(angle):
         pass
 
 
-def goto(xTarget, yTarget, tt = Robotik):
+def goto(xTarget, yTarget, tt = Robotik.body):
     """
-    Cette fonction permet de donner une postion CMO et Robotik s'y rend.
+    Cette fonction permet de donner une postion CMO et Robotik.body s'y rend.
     xTarget et yTarget sont les coordonnées du point visé
     Robot permet de séléctioner quel élément du robot on met en point de repère.
     """
@@ -172,28 +173,28 @@ def goto(xTarget, yTarget, tt = Robotik):
     yTarget = convert_CMOtoCTC(yTarget, "y")
 
     """
-    if tt == pince1:
-        if Robotik.xcor() > xTarget:
-            # The target is 'left' to Robotik
+    if tt == Robotik.pince1:
+        if Robotik.body.xcor() > xTarget:
+            # The target is 'left' to Robotik.body
             xTarget = xTarget - ENTRAX*ECHELLE
-        elif Robotik.xcor() < xTarget:
-            # The target is 'right' to Robotik
+        elif Robotik.body.xcor() < xTarget:
+            # The target is 'right' to Robotik.body
             xTarget = xTarget + ENTRAX*ECHELLE
-    elif tt == pince2:
-        if Robotik.xcor() > yTarget:
-            # The target is 'left' to Robotik
+    elif tt == Robotik.pince2:
+        if Robotik.body.xcor() > yTarget:
+            # The target is 'left' to Robotik.body
             yTarget = yTarget - ENTRAX*ECHELLE
-        elif Robotik.xcor() < yTarget:
-            # The target is 'right' to Robotik
+        elif Robotik.body.xcor() < yTarget:
+            # The target is 'right' to Robotik.body
             yTarget = xTarget + ENTRAX*ECHELLE
     else:
         pass
     """
 
     #Distanc absolue entre les coordonnés selon y
-    distX = abs(xTarget - Robotik.xcor())
+    distX = abs(xTarget - Robotik.body.xcor())
     #Distanc absolue entre les coordonnés selon y
-    distY = abs(yTarget - Robotik.ycor())
+    distY = abs(yTarget - Robotik.body.ycor())
     #Distanc absolue réduite à 15% entre les coordonnés selon x
     # distXRed = (distX-((15*distX)/100))
     phi = int((180*math.atan(distY/distX))/math.pi)
@@ -202,87 +203,87 @@ def goto(xTarget, yTarget, tt = Robotik):
     print("*")
     print(xTarget)
     print(yTarget)
-    print(Robotik.xcor())
-    print(Robotik.ycor())
+    print(Robotik.body.xcor())
+    print(Robotik.body.ycor())
     print(distX)
     print(distY)
     print(phi)
     print("*")
 
-    if Robotik.xcor() > xTarget:
-        # The target is 'left' to Robotik
-        if Robotik.ycor() > yTarget:
-            # The target is 'left-down' to Robotik
+    if Robotik.body.xcor() > xTarget:
+        # The target is 'left' to Robotik.body
+        if Robotik.body.ycor() > yTarget:
+            # The target is 'left-down' to Robotik.body
             rotate_target(int(180+phi))
             avancer(math.sqrt(distX*distX+distY*distY)/ECHELLE - delta)
-            if tt == pince1:
+            if tt == Robotik.pince1:
                 rotate(RGH, angleEnPlus)
                 avancer(eI)
-            elif tt == pince2:
+            elif tt == Robotik.pince2:
                 rotate(LFT, angleEnPlus)
                 avancer(eI)
             else:
                 avancer(delta)
-        elif Robotik.ycor() < yTarget:
-            # The target is 'left-up' to Robotik
+        elif Robotik.body.ycor() < yTarget:
+            # The target is 'left-up' to Robotik.body
             rotate_target(int(180-phi))
             avancer(math.sqrt(distX*distX+distY*distY)/ECHELLE - delta)
-            if tt == pince1:
+            if tt == Robotik.pince1:
                 rotate(RGH, angleEnPlus)
                 avancer(eI)
-            elif tt == pince2:
+            elif tt == Robotik.pince2:
                 rotate(LFT, angleEnPlus)
                 avancer(eI)
             else:
                 avancer(delta)
         else:
-            # The target and Robotik are on the same y value
+            # The target and Robotik.body are on the same y value
             rotate_target(int(180))
-            avancer(int(abs(xTarget-Robotik.xcor())))
+            avancer(int(abs(xTarget-Robotik.body.xcor())))
 
-    elif Robotik.xcor() < xTarget:
-        # The target is 'right' to Robotik
-        if Robotik.ycor() > yTarget:
-            # The target is 'right-down' to Robotik
+    elif Robotik.body.xcor() < xTarget:
+        # The target is 'right' to Robotik.body
+        if Robotik.body.ycor() > yTarget:
+            # The target is 'right-down' to Robotik.body
             rotate_target(int(360-phi))
             avancer(math.sqrt(distX*distX+distY*distY)/ECHELLE - delta)
-            if tt == pince1:
+            if tt == Robotik.pince1:
                 rotate(RGH, angleEnPlus)
                 avancer(eI)
-            elif tt == pince2:
+            elif tt == Robotik.pince2:
                 rotate(LFT, angleEnPlus)
                 avancer(eI)
             else:
                 avancer(delta)
-        elif Robotik.ycor() < yTarget:
-            # The target is 'right-up' to Robotik
+        elif Robotik.body.ycor() < yTarget:
+            # The target is 'right-up' to Robotik.body
             rotate_target(int(phi))
             avancer(math.sqrt(distX*distX+distY*distY)/ECHELLE - delta)
-            if tt == pince1:
+            if tt == Robotik.pince1:
                 rotate(RGH, angleEnPlus)
                 avancer(eI)
-            elif tt == pince2:
+            elif tt == Robotik.pince2:
                 rotate(LFT, angleEnPlus)
                 avancer(eI)
             else:
                 avancer(delta)
         else:
-            # The target and Robotik are on the same y value
+            # The target and Robotik.body are on the same y value
             rotate_target(0)
-            avancer(int(abs(xTarget-Robotik.xcor())))
+            avancer(int(abs(xTarget-Robotik.body.xcor())))
 
     else:
-        # The target and Robotik are on the same x value
-        if Robotik.ycor() > yTarget:
-            # The target is 'under' Robotik
+        # The target and Robotik.body are on the same x value
+        if Robotik.body.ycor() > yTarget:
+            # The target is 'under' Robotik.body
             rotate(RGH, 90)
-            avancer(int(abs(yTarget-Robotik.ycor())))
-        elif Robotik.ycor() < yTarget:
-            # The target is 'above' Robotik
+            avancer(int(abs(yTarget-Robotik.body.ycor())))
+        elif Robotik.body.ycor() < yTarget:
+            # The target is 'above' Robotik.body
             rotate(LFT, 90)
-            avancer(int(abs(yTarget-Robotik.ycor())))
+            avancer(int(abs(yTarget-Robotik.body.ycor())))
         else:
-            return(1)   # Robotik is on the rigth place
+            return(1)   # Robotik.body is on the rigth place
 
 ###############################################################################
 
@@ -292,7 +293,7 @@ def prise_gobi():
     est pris.
     Un gobi est pris si la pince est vide et à la même position qu'un gobi.
 
-    On appelle avec STATE_PINCE1 et STATE_PINCE2 qui sont de base à None donc
+    On appelle avec STATE_Robotik.pince1 et STATE_PINCE2 qui sont de base à None donc
     ETATP1 et ETATP2 aussi.
     """
     global STATE_PINCE1, STATE_PINCE2
@@ -300,17 +301,17 @@ def prise_gobi():
         prise = False
         compt = 0
         # on sort du while si compt = 24 ou si on est sur la position d'un gobi
-        # pince1.xcor() est en CTC on applique ECHELLE à LISTEGOBI[compt][0]
+        # Robotik.pince1.xcor() est en CTC on applique ECHELLE à LISTEGOBI[compt][0]
         # et LISTEGOBI[compt][1]
         # On considère qu'une pince est sur postion d'un gobi si elle se trouve
         while not prise and compt < len(LISTEGOBI):
             if (
                 abs(
-                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - pince1.xcor()
+                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - Robotik.pince1.xcor()
                 ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
                 and
                 abs(
-                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - pince1.ycor()
+                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - Robotik.pince1.ycor()
                 ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
             ):
                 prise = True
@@ -320,7 +321,7 @@ def prise_gobi():
         if prise:
             STATE_PINCE1 = LISTEGOBI[compt]
             # La pince prend la couleur du gobi
-            pince1.fillcolor(STATE_PINCE1[2])
+            Robotik.pince1.fillcolor(STATE_PINCE1[2])
             # On efface le gobi avec la couleur du fond
             init_board.dessin_Cercle(
                 convert_CMOtoCTC(LISTEGOBI[compt][0], "x"),
@@ -334,11 +335,11 @@ def prise_gobi():
         while not prise and compt < len(LISTEGOBI):
             if (
                 abs(
-                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - pince2.xcor()
+                    convert_CMOtoCTC(LISTEGOBI[compt][0], "x") - Robotik.pince2.xcor()
                 ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
                 and
                 abs(
-                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - pince2.ycor()
+                    convert_CMOtoCTC(LISTEGOBI[compt][1], "y") - Robotik.pince2.ycor()
                 ) <= LONGUER_ACCEPTATION_PINCES*ECHELLE
             ):
                 prise = True
@@ -346,7 +347,7 @@ def prise_gobi():
                 compt = compt + 1
         if prise:
             STATE_PINCE2 = LISTEGOBI[compt]
-            pince2.fillcolor(STATE_PINCE2[2])
+            Robotik.pince2.fillcolor(STATE_PINCE2[2])
             init_board.dessin_Cercle(
                 convert_CMOtoCTC(LISTEGOBI[compt][0], "x"),
                 convert_CMOtoCTC(LISTEGOBI[compt][1], "y"),
@@ -361,26 +362,26 @@ def poser_gobi(tt):
     pleines correspond avec celle des zones de dépots.
     """
     global STATE_PINCE1, STATE_PINCE2
-    if tt == pince1:
-        pince1.fillcolor(255, 255, 255)
+    if tt == Robotik.pince1:
+        Robotik.pince1.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
-        pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
+        Robotik.pince1.xcor(), Robotik.pince1.ycor(), STATE_PINCE1[2]
         )
         LISTEGOBI.append((
-            convert_CTCtoCMO(pince1.xcor(), "x"),
-            convert_CTCtoCMO(pince1.ycor(), "y"),
+            convert_CTCtoCMO(Robotik.pince1.xcor(), "x"),
+            convert_CTCtoCMO(Robotik.pince1.ycor(), "y"),
             STATE_PINCE1[2], STATE_PINCE1[3])
         )
         STATE_PINCE1 = None
         reculer(100)
-    if tt == pince2:
-        pince2.fillcolor(255, 255, 255)
+    if tt == Robotik.pince2:
+        Robotik.pince2.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
-        pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
+        Robotik.pince2.xcor(), Robotik.pince2.ycor(), STATE_Robotik.pince2[2]
         )
         LISTEGOBI.append((
-            convert_CTCtoCMO(pince2.xcor(), "x"),
-            convert_CTCtoCMO(pince2.ycor(), "y"),
+            convert_CTCtoCMO(Robotik.pince2.xcor(), "x"),
+            convert_CTCtoCMO(Robotik.pince2.ycor(), "y"),
             STATE_PINCE2[2], STATE_PINCE2[3])
         )
         STATE_PINCE2 = None
@@ -390,28 +391,28 @@ def poser_gobi(tt):
 
 ###############################################################################
 
-# Initialise le Robotik et ses pinces
-def init_robot():
+# Initialise le Robotik.body et ses pinces
+def init_robot(bot):
     """
     Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
     pinces.
     """
-    Robotik.shape("square")
-    Robotik.shapesize(2.4, 2.4, 1)
-    Robotik.penup()
-    Robotik.fillcolor(BOTCOLOR)
+    bot.body.shape("square")
+    bot.body.shapesize(2.4, 2.4, 1)
+    bot.body.penup()
+    bot.body.fillcolor(BOTCOLOR)
 
-    pince1.shapesize(1, 1, 1)
-    pince1.penup()
-    pince1.fillcolor("white")
-    pince1.shape("circle")
+    bot.pince1.shapesize(1, 1, 1)
+    bot.pince1.penup()
+    bot.pince1.fillcolor("white")
+    bot.pince1.shape("circle")
 
-    pince2.shapesize(1, 1, 1)
-    pince2.penup()
-    pince2.fillcolor("white")
-    pince2.shape("circle")
+    bot.pince2.shapesize(1, 1, 1)
+    bot.pince2.penup()
+    bot.pince2.fillcolor("white")
+    bot.pince2.shape("circle")
 
-    Robotik.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
+    bot.body.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
         convert_CMOtoCTC(ORIGINtBy, "y")
     )
     calculer_pos_pinces()

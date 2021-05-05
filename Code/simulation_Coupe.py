@@ -8,6 +8,7 @@ from constantes import (
 import init_board
 import robot_mouvment
 import procedures
+import classrobotik
 
 ###############################################################################
 """ Ce fichier est l'executable de la simulation, c'est ici que le code final
@@ -16,8 +17,13 @@ est compilé pour la simulation """
 
 # Crée le plateau de jeu
 init_board.drawboard()
+
+Robotik = classrobotik.duckbot()
+Robotik.power()
+
 # Initialise le robot et les pinces
-robot_mouvment.init_robot()
+robot_mouvment.init_robot(Robotik)
+
 # process_instruction()
 x = procedures.process_instruction()
 procedures.read_instruction(x)

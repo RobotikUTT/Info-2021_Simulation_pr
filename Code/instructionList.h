@@ -7,7 +7,7 @@
 #ifndef INSTRUCTIONLIST_H
 #define INSTRUCTIONLIST_H
 
-int golist = [1000, 200, 1200, 600];
-int nbrGoto = 4;
+int golist = [800, 400];
+int nbrGoto = 2;
 
 #endif // INSTRUCTIONLIST_H
