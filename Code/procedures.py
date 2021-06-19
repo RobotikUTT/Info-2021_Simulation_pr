@@ -22,7 +22,7 @@ def convert_instruction(number):
     # Constantes pour l'écriture du fichier.c
     # nom du fichier : instructionList.# HACK:
     COMMENTSTRING = (
-        "/*\n * \ file instructionList.h\n * \created by the simulation\n*/"
+        "/*\n * \\ file instructionList.h\n * \\created by the simulation\n*/"
     )
     HEADSTRING = "#ifndef INSTRUCTIONLIST_H\n#define INSTRUCTIONLIST_H"
     FOOTSTRING = "#endif // INSTRUCTIONLIST_H"
