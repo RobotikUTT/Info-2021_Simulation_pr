@@ -74,19 +74,24 @@ YL = (255, 191, 0)                  # Jaune
 BLC = (0, 0, 0)                     # Noir
 AQA = (79, 205, 251)                # Aqua
 BOTCOLOR = (196, 196, 196)          # Couleur du Robot
+
 ECHELLE = 1/5                       # Echelle des longueurs réel/simulation
 DIMTABLE = (3000, 2000)             # Les dimensions de la tables en x;y en CMO
 OFFSETX = DIMTABLE[0]//2
 OFFSETY = DIMTABLE[1]//2
 LFT = "left"
 RGH = "right"
+
 # En mm, distance entre le centre du robot et le centre des pinces
 ENTRAX = 117.95
 # Angle entre le vecteur robot et les vecteurs pinces
 VALEUR_ROTATION_P1P2 = 30.0
+
 # Origine du robot en CMO
-ORIGINtBx = 250  # En CMO
-ORIGINtBy = 800  # En CMO
+ORIGINtBxB = 250  # En CMO
+ORIGINtByB = 800  # En CMO
+ORIGINtBxJ = 2750  # En CMO
+ORIGINtByJ = 800  # En CMO
 DIAMETREGOBI = 75  # En mm
 LONGUER_ACCEPTATION_PINCES = 50  # En mm
 

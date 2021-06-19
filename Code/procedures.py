@@ -2,8 +2,8 @@ from random import randint
 import turtle
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
-    ORIGINtBy
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBxB,
+    ORIGINtByB, ORIGINtBxJ, ORIGINtByJ
 )
 import init_board
 import robot_mouvment
@@ -12,6 +12,46 @@ import robot_mouvment
 """ Ce fichier contient les procédures de déplacements complexes"""
 ###############################################################################
 
+
+def process_instruction():
+    """
+    Lance une console qui propsoe de rentrer une suite s'instruction en
+    coordonnés x y CMO et les convertit en un fichier lisible par
+    la simulation.
+    Crée le ficher pySim.txt
+    """
+    quit = "Rest"
+    nbrCoord = 0
+
+    with open("pySim.txt", "w") as fl:
+        print("Print 'Quit' to quit.\n")
+        x = input("\nEnter x :")
+        while x != "Quit":
+            fl.write(x)
+            fl.write("\n")
+            fl.write(input("\nEnter y :"))
+            fl.write("\n")
+            x = input("\nEnter x :")
+            nbrCoord += 1
+
+    return(nbrCoord)
+
+
+def read_instruction(nbrCoord):
+    """
+    Read the 'pySim.txt' file and convert it into goto intructions
+    """
+    with open("pySim.txt", "r") as filin:
+        for nbr in range(nbrCoord):
+            x = filin.readline()
+            x = x[:-1]
+            x = int(x)
+            print(x)
+            y = filin.readline()
+            y = y[:-1]
+            y = int(y)
+            print(y)
+            robot_mouvment.goto(x, y)
 
 def convert_instruction(number):
     """
@@ -29,6 +69,8 @@ def convert_instruction(number):
 
     declare1 = "int nbrGoto = "
     declare2 = "int golist = ["
+
+    
 
     ptrfile = open("instructionList.h", "w")
     ptrfile.write(COMMENTSTRING)
@@ -52,44 +94,5 @@ def convert_instruction(number):
     ptrfile.write(";\n\n")
     ptrfile.write(FOOTSTRING)
 
-
-
-def process_instruction():
-    """
-    Lance une console qui propsoe de rentrer une suite s'instruction en
-    coordonnés x y CMO et les convertit en un fichier lisible par
-    la simulation
-    """
-    fl = open("pySim.txt", "w")
-    quit = "Rest"
-    nbrCoord = 0
-
-    print("Print 'Quit' to quit.\n")
-    x = input("\nEnter x :")
-    while x != "Quit":
-        fl.write(x)
-        fl.write("\n")
-        fl.write(input("\nEnter y :"))
-        fl.write("\n")
-        x = input("\nEnter x :")
-        nbrCoord += 1
-    fl.close()
-
-    return(nbrCoord)
-
-
-def read_instruction(nbrCoord):
-    """
-    Read the 'pySim.txt' file and convert it into goto intructions
-    """
-    with open("pySim.txt", "r") as filin:
-        for nbr in range(nbrCoord):
-            x = filin.readline()
-            x = x[:-1]
-            x = int(x)
-            print(x)
-            y = filin.readline()
-            y = y[:-1]
-            y = int(y)
-            print(y)
-            robot_mouvment.goto(x, y)
+    ptrfile.close()
+    ptrfileread.close()

@@ -3,8 +3,8 @@ from random import randint
 import math
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, BOTCOLOR, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
-    ORIGINtBy, LONGUER_ACCEPTATION_PINCES
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBxB,
+    ORIGINtByB, LONGUER_ACCEPTATION_PINCES, ORIGINtBxJ, ORIGINtByJ
 )
 import init_board
 
@@ -411,9 +411,21 @@ def init_robot():
     pince2.fillcolor("white")
     pince2.shape("circle")
 
-    Robotik.goto(convert_CMOtoCTC(ORIGINtBx,"x"),
-        convert_CMOtoCTC(ORIGINtBy, "y")
-    )
+    # Enter the side of the robot
+    SIDE = input("Enter the side ('B' or 'J'): ")
+    while SIDE != 'B' and SIDE != 'J':
+        SIDE = input("Enter the side ('B' or 'J'): ")
+    print(SIDE)
+
+    if SIDE == 'B':
+        Robotik.goto(convert_CMOtoCTC(ORIGINtBxB,"x"),
+            convert_CMOtoCTC(ORIGINtByB, "y")
+        )
+    elif SIDE == 'J':
+        Robotik.goto(convert_CMOtoCTC(ORIGINtBxJ,"x"),
+            convert_CMOtoCTC(ORIGINtByJ, "y")
+        )
+        rotate_target(180)
     calculer_pos_pinces()
 
 if __name__ == '__main__':

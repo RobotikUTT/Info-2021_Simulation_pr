@@ -2,8 +2,8 @@ import turtle
 from random import randint
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
-    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBx,
-    ORIGINtBy, DIAMETREGOBI
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBxB,
+    ORIGINtByB, DIAMETREGOBI, ORIGINtBxJ, ORIGINtByJ
 )
 
 ###############################################################################
