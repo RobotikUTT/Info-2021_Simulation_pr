@@ -7,7 +7,7 @@
 #ifndef INSTRUCTIONLIST_H
 #define INSTRUCTIONLIST_H
 
-int golist = [1600, 200];
+int golist = [901.9443921736619, 401.94439217366187];
 int nbrGoto = 2;
 
 #endif // INSTRUCTIONLIST_H

@@ -53,6 +53,20 @@ def read_instruction(nbrCoord):
             print(y)
             robot_mouvment.goto(x, y)
 
+
+def find_mouv(val, axe=True):
+
+    print(robot_mouvment.Robotik.xcor())
+    print(robot_mouvment.Robotik.ycor())
+    print(val)
+    print(axe)
+
+    if axe:
+        return(val-robot_mouvment.Robotik.xcor())
+    else:
+        return(val-robot_mouvment.Robotik.ycor())
+
+
 def convert_instruction(number):
     """
     Ce fichier convertit en fichier .c les intructions du fichier 'pySim.txt'.
@@ -70,8 +84,6 @@ def convert_instruction(number):
     declare1 = "int nbrGoto = "
     declare2 = "int golist = ["
 
-    
-
     ptrfile = open("instructionList.h", "w")
     ptrfile.write(COMMENTSTRING)
     ptrfile.write("\n\n\n")
@@ -79,15 +91,20 @@ def convert_instruction(number):
     ptrfile.write("\n\n")
     ptrfile.write(declare2)
 
+
+
     ptrfileread = open("pySim.txt", "r")
     for i in range(number*2-1):
         x = ptrfileread.readline()
         x = x[:-1]
-        ptrfile.write(x)
+        if i%2 != 0:
+            ptrfile.write(str(find_mouv(int(x))))
+        else:
+            ptrfile.write(str(find_mouv(int(x), axe=False)))
         ptrfile.write(", ")
     x = ptrfileread.readline()
     x = x[:-1]
-    ptrfile.write(x)
+    ptrfile.write(str(find_mouv(int(x), axe=False)))
     ptrfile.write("];\n")
     ptrfile.write(declare1)
     ptrfile.write(str(number*2))
