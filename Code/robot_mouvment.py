@@ -393,13 +393,11 @@ def poser_gobi(tt):
 ###############################################################################
 
 # Initialise le Robotik et ses pinces
-def init_robot():
+def init_robot(side):
     """
     Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
     pinces.
     """
-
-    global SIDE
 
     Robotik.shape("square")
     Robotik.shapesize(2.4, 2.4, 1)
@@ -417,15 +415,12 @@ def init_robot():
     pince2.shape("circle")
 
     # Enter the side of the robot
-    SIDE = input("Enter the side ('B' or 'J'): ")
-    while SIDE != 'B' and SIDE != 'J':
-        SIDE = input("Enter the side ('B' or 'J'): ")
 
-    if SIDE == 'B':
+    if side == 'B':
         Robotik.goto(convert_CMOtoCTC(ORIGINtBxB,"x"),
             convert_CMOtoCTC(ORIGINtByB, "y")
         )
-    elif SIDE == 'J':
+    elif side == 'J':
         Robotik.goto(convert_CMOtoCTC(ORIGINtBxJ,"x"),
             convert_CMOtoCTC(ORIGINtByJ, "y")
         )

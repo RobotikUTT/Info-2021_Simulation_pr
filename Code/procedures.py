@@ -46,12 +46,33 @@ def read_instruction(nbrCoord):
             robot_mouvment.goto(x, y)
 
 
-def convert_instruction(number):
+def calcul_bot_mouv(coord, side):
+    """
+    Trouver quel est le déplacement objectif du robot en fonction de
+    ceux demandées
+    """
+    compt = 0
+    tup = []
+    for i in coord:
+        if compt % 2 == 0:
+            if side == 'B':
+                tup.append(i-ORIGINtBxB)
+            elif side == 'J':
+                tup.append(-(i-ORIGINtBxJ))
+        else:
+            if side == 'B':
+                tup.append(-(i-ORIGINtByB))
+            elif side == 'J':
+                tup.append(i-ORIGINtByJ)
+        compt = compt + 1
+    return(tuple(tup))
+
+
+def convert_instruction(number, side):
     """
     Ce fichier convertit en fichier .c les intructions du fichier 'pyS.txt'.
     Ce fichier sera lu par la carte arduino.
     """
-
     # Constantes pour l'écriture du fichier.c
     # nom du fichier : instructionList.h
     COMMENTSTRING = (
@@ -62,19 +83,22 @@ def convert_instruction(number):
     declare1 = "int nbrGoto = "
     declare2 = "int golist = ["
 
-    with open("instructionList.h", "w") as isC:
+    with open('instructionList.h', 'w') as isC:
         # Ecrit la tête du fichier
         isC.write(COMMENTSTRING + "\n\n\n" + HEADSTRING + "\n\n" + declare2)
+        # Lit l'ensemble du fichier dans un tableau pour chaque ligne
+        pyS = open('pySim.txt', 'r')
+        coord = pyS.readlines()
+        pyS.close()
+        # Retire les '\n' de chaque ligne et transforme en int
+        for i in range(len(coord)):
+            coord[i] = int(coord[i].removesuffix('\n'))
+        coord = tuple(coord)
+        coord = calcul_bot_mouv(coord, side)
 
-        with open("pySim.txt", "r") as pyS:
-            for i in range(number*2-1):
-                x = pyS.readline()
-                isC.write(x.removesuffix('\n'))
-                isC.write(", ")
-
-            # Ecrit la fin du fichier
-            x = pyS.readline()
-            isC.write(
-                x.removesuffix('\n') + "];\n" + declare1 + str(number*2) +
-                ";\n\n" + FOOTSTRING
-            )
+        for xy in coord[:-1]:
+            isC.write(str(xy) + ", ")   # Ecrit dans le tableau de coordonnés
+        isC.write(
+            str(coord[-1]) + "];\n" + declare1 + str(number*2) +
+            ";\n\n" + FOOTSTRING
+        )   # fini le fichier

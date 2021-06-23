@@ -92,7 +92,6 @@ ENTRAX = 117.95
 VALEUR_ROTATION_P1P2 = 30.0
 
 # Origine du robot en CMO
-SIDE = None # SIDE will be initialized in robot_mouvment.init_robot()
 ORIGINtBxB = 250  # En CMO
 ORIGINtByB = 800  # En CMO
 ORIGINtBxJ = 2750  # En CMO

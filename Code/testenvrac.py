@@ -1,30 +1,47 @@
-import turtle
-import constantes
-import robot_mouvment
-import init_board
-from constantes import LISTEGOBI, convert_CMOtoCTC, convert_CTCtoCMO
+"""
+Ce fichier convertit en fichier .c les intructions du fichier 'pyS.txt'.
+Ce fichier sera lu par la carte arduino.
+"""
+number = 3
+# Constantes pour l'écriture du fichier.c
+# nom du fichier : instructionList.h
+COMMENTSTRING = (
+    "/*\n * \\ file instructionList.h\n * \\created by the simulation\n*/"
+)
+HEADSTRING = "#ifndef INSTRUCTIONLIST_H\n#define INSTRUCTIONLIST_H"
+FOOTSTRING = "#endif // INSTRUCTIONLIST_H"
+declare1 = "int nbrGoto = "
+declare2 = "int golist = ["
 
-
-turtle.colormode(0xFF)
-turtle.speed(100)
-turtle.shapesize(0.1, 0.1, 0.1)
-turtle.penup()
-init_board.dessin_Gobies_init()
-
-
-def dessin_Gobies_init2():
+with open('instructionList.h', 'w') as isC:
+    # Ecrit la tête du fichier
+    isC.write(COMMENTSTRING + "\n\n\n" + HEADSTRING + "\n\n" + declare2)
     """
-    Dessine l'ensemble des gobies de la table (à ne faire qu'une fois). Dans
-    l'état les éléments de la liste sont en unité turtle centré
-    donc on applique juste ECHELLE.
-    """
-    for i in range(0, 24):
-        init_board.dessin_Cercle(
-            convert_CMOtoCTC(LISTEGOBI[i][0]),
-            convert_CMOtoCTC(LISTEGOBI[i][1]),
-            LISTEGOBI[i][2]
+    with open("pySim.txt", "r") as pyS:
+        for i in range(number*2-1):
+            x = pyS.readline()
+            isC.write(x.removesuffix('\n'))
+            isC.write(", ")
+
+        # Ecrit la fin du fichier
+        x = pyS.readline()
+        isC.write(
+            x.removesuffix('\n') + "];\n" + declare1 + str(number*2) +
+            ";\n\n" + FOOTSTRING
         )
+    """
+    # Lit l'ensemble du fichier dans un tableau pour chaque ligne
+    pyS = open('pySim.txt', 'r')
+    coord = pyS.readlines()
+    pyS.close()
+    # Retire les '\n' de chaque ligne et transforme en int
+    for i in range(len(coord)):
+        coord[i] = int(coord[i].removesuffix('\n'))
+    coord = tuple(coord)
 
-
-rotate_target(86)
-turtle.mainloop()
+    for xy in coord[:-1]:
+        isC.write(str(xy) + ", ")
+    isC.write(
+        str(coord[-1]) + "];\n" + declare1 + str(number*2) +
+        ";\n\n" + FOOTSTRING
+    )
