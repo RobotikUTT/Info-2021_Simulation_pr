@@ -9,107 +9,72 @@ import init_board
 import robot_mouvment
 
 ###############################################################################
-""" Ce fichier contient les procédures de déplacements complexes"""
+""" Ce fichier contient les procédures de communications complexes"""
 ###############################################################################
 
 
 def process_instruction():
     """
     Lance une console qui propsoe de rentrer une suite s'instruction en
-    coordonnés x y CMO et les convertit en un fichier lisible par
-    la simulation.
-    Crée le ficher pySim.txt
+    coordonnés (x;y) CMO et les convertit en un fichier lisible par
+    la simulation. Crée le ficher pyS.txt
+    Retourne le nombre de coordonnées totales.
     """
     quit = "Rest"
     nbrCoord = 0
-
     with open("pySim.txt", "w") as fl:
         print("Print 'Quit' to quit.\n")
-        x = input("\nEnter x :")
-        while x != "Quit":
-            fl.write(x)
-            fl.write("\n")
-            fl.write(input("\nEnter y :"))
-            fl.write("\n")
-            x = input("\nEnter x :")
+        invite = input("\nEnter x :")
+        while invite != "Quit":
+            # Ecrit dans le fichier
+            fl.write(invite+"\n"+input("\nEnter y :")+"\n")
+            invite = input("\nEnter x :")
             nbrCoord += 1
-
     return(nbrCoord)
 
 
 def read_instruction(nbrCoord):
     """
-    Read the 'pySim.txt' file and convert it into goto intructions
+    Read the 'pyS.txt' file and convert it into goto intructions
     """
-    with open("pySim.txt", "r") as filin:
+    with open("pySim.txt", "r") as fl:
+        coord = fl.readlines()
         for nbr in range(nbrCoord):
-            x = filin.readline()
-            x = x[:-1]
-            x = int(x)
-            print(x)
-            y = filin.readline()
-            y = y[:-1]
-            y = int(y)
-            print(y)
+            x = int(coord[nbr].removesuffix('\n'))
+            y = int(coord[nbr+1].removesuffix('\n'))
+            nbr = nbr + 1
             robot_mouvment.goto(x, y)
-
-
-def find_mouv(val, axe=True):
-
-    print(robot_mouvment.Robotik.xcor())
-    print(robot_mouvment.Robotik.ycor())
-    print(val)
-    print(axe)
-
-    if axe:
-        return(val-robot_mouvment.Robotik.xcor())
-    else:
-        return(val-robot_mouvment.Robotik.ycor())
 
 
 def convert_instruction(number):
     """
-    Ce fichier convertit en fichier .c les intructions du fichier 'pySim.txt'.
+    Ce fichier convertit en fichier .c les intructions du fichier 'pyS.txt'.
     Ce fichier sera lu par la carte arduino.
     """
 
     # Constantes pour l'écriture du fichier.c
-    # nom du fichier : instructionList.# HACK:
+    # nom du fichier : instructionList.h
     COMMENTSTRING = (
         "/*\n * \\ file instructionList.h\n * \\created by the simulation\n*/"
     )
     HEADSTRING = "#ifndef INSTRUCTIONLIST_H\n#define INSTRUCTIONLIST_H"
     FOOTSTRING = "#endif // INSTRUCTIONLIST_H"
-
     declare1 = "int nbrGoto = "
     declare2 = "int golist = ["
 
-    ptrfile = open("instructionList.h", "w")
-    ptrfile.write(COMMENTSTRING)
-    ptrfile.write("\n\n\n")
-    ptrfile.write(HEADSTRING)
-    ptrfile.write("\n\n")
-    ptrfile.write(declare2)
+    with open("instructionList.h", "w") as isC:
+        # Ecrit la tête du fichier
+        isC.write(COMMENTSTRING + "\n\n\n" + HEADSTRING + "\n\n" + declare2)
 
+        with open("pySim.txt", "r") as pyS:
+            for i in range(number*2-1):
+                x = pyS.readline()
+                isC.write(x.removesuffix('\n'))
+                isC.write(", ")
 
-
-    ptrfileread = open("pySim.txt", "r")
-    for i in range(number*2-1):
-        x = ptrfileread.readline()
-        x = x[:-1]
-        if i%2 != 0:
-            ptrfile.write(str(find_mouv(int(x))))
-        else:
-            ptrfile.write(str(find_mouv(int(x), axe=False)))
-        ptrfile.write(", ")
-    x = ptrfileread.readline()
-    x = x[:-1]
-    ptrfile.write(str(find_mouv(int(x), axe=False)))
-    ptrfile.write("];\n")
-    ptrfile.write(declare1)
-    ptrfile.write(str(number*2))
-    ptrfile.write(";\n\n")
-    ptrfile.write(FOOTSTRING)
-
-    ptrfile.close()
-    ptrfileread.close()
+            # Ecrit la fin du fichier
+            x = pyS.readline()
+            isC.write(
+                x.removesuffix('\n') + "];\n" + declare1 + str(number*2) +
+                ";\n\n" + FOOTSTRING
+            )

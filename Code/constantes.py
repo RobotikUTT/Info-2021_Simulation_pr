@@ -11,7 +11,9 @@ Il y a trois types de coordonnés dans ce projet :
 ###############################################################################
 
 def convert_CMOtoCTC(val, axe):
-    """Convertit une position CMO en CTC"""
+    """
+    Convertit une position CMO en CTC. val: La valeur en int, axe: 'x' ou 'y'
+    """
     if (axe == "x"):
         if (val == 1500):
             return (0)
@@ -39,7 +41,9 @@ def convert_CMOtoCTC(val, axe):
 
 
 def convert_CTCtoCMO(val, axe):
-    """Convertit une position CTC en CMO"""
+    """
+    Convertit une position CTC en CMO. val: La valeur en int, axe: 'x' ou 'y'
+    """
     if (axe == "x"):
         if (val == 0):
             return (1500)
@@ -88,10 +92,13 @@ ENTRAX = 117.95
 VALEUR_ROTATION_P1P2 = 30.0
 
 # Origine du robot en CMO
+SIDE = None # SIDE will be initialized in robot_mouvment.init_robot()
 ORIGINtBxB = 250  # En CMO
 ORIGINtByB = 800  # En CMO
 ORIGINtBxJ = 2750  # En CMO
 ORIGINtByJ = 800  # En CMO
+
+# Gobies features
 DIAMETREGOBI = 75  # En mm
 LONGUER_ACCEPTATION_PINCES = 50  # En mm
 

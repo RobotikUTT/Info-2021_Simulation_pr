@@ -199,6 +199,7 @@ def goto(xTarget, yTarget, tt = Robotik):
     phi = int((180*math.atan(distY/distX))/math.pi)
     # phiRed = (180*(math.atan(distY/distXRed)))/math.pi
 
+    """
     print("*")
     print(xTarget)
     print(yTarget)
@@ -208,6 +209,7 @@ def goto(xTarget, yTarget, tt = Robotik):
     print(distY)
     print(phi)
     print("*")
+    """
 
     if Robotik.xcor() > xTarget:
         # The target is 'left' to Robotik
@@ -396,6 +398,9 @@ def init_robot():
     Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
     pinces.
     """
+
+    global SIDE
+
     Robotik.shape("square")
     Robotik.shapesize(2.4, 2.4, 1)
     Robotik.penup()
@@ -415,7 +420,6 @@ def init_robot():
     SIDE = input("Enter the side ('B' or 'J'): ")
     while SIDE != 'B' and SIDE != 'J':
         SIDE = input("Enter the side ('B' or 'J'): ")
-    print(SIDE)
 
     if SIDE == 'B':
         Robotik.goto(convert_CMOtoCTC(ORIGINtBxB,"x"),

@@ -14,13 +14,11 @@ import procedures
 est compilé pour la simulation """
 ###############################################################################
 
-# Crée le plateau de jeu
-init_board.drawboard()
-# Initialise le robot et les pinces
-robot_mouvment.init_robot()
-# process_instruction()
-x = procedures.process_instruction()
-procedures.read_instruction(x)
-procedures.convert_instruction(x)
+init_board.drawboard()  # Crée le plateau de jeu
+robot_mouvment.init_robot() # Initialise le robot et les pinces
+
+nbrCoord = procedures.process_instruction()    # process_instruction()
+procedures.read_instruction(nbrCoord)
+procedures.convert_instruction(nbrCoord)
 
 turtle.mainloop()
