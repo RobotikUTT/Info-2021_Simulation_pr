@@ -20,8 +20,7 @@ def process_instruction():
     la simulation. Crée le ficher pyS.txt
     Retourne le nombre de coordonnées totales.
     """
-    quit = "Rest"
-    nbrCoord = 0
+    nbrGoto = 0
     with open("pySim.txt", "w") as fl:
         print("Print 'Quit' to quit.\n")
         invite = input("\nEnter x :")
@@ -29,11 +28,11 @@ def process_instruction():
             # Ecrit dans le fichier
             fl.write(invite+"\n"+input("\nEnter y :")+"\n")
             invite = input("\nEnter x :")
-            nbrCoord += 1
-    return(nbrCoord)
+            nbrGoto += 1
+    return(nbrGoto)
 
 
-def read_instruction(nbrCoord):
+def read_instruction(nbrGoto):
     """
     Read the 'pyS.txt' file and convert it into goto intructions
     """
@@ -41,7 +40,7 @@ def read_instruction(nbrCoord):
         coord = fl.readlines()
         print(coord)
         nbr = 0
-        while nbr < nbrCoord*2:
+        while nbr < nbrGoto*2:
             x = int(coord[nbr].removesuffix('\n'))
             y = int(coord[nbr+1].removesuffix('\n'))
             nbr = nbr + 2
