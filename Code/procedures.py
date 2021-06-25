@@ -39,10 +39,14 @@ def read_instruction(nbrCoord):
     """
     with open("pySim.txt", "r") as fl:
         coord = fl.readlines()
-        for nbr in range(nbrCoord):
+        print(coord)
+        nbr = 0
+        while nbr < nbrCoord*2:
             x = int(coord[nbr].removesuffix('\n'))
             y = int(coord[nbr+1].removesuffix('\n'))
-            nbr = nbr + 1
+            nbr = nbr + 2
+            print(x)
+            print(y)
             robot_mouvment.goto(x, y)
 
 
@@ -99,6 +103,6 @@ def convert_instruction(number, side):
         for xy in coord[:-1]:
             isC.write(str(xy) + ", ")   # Ecrit dans le tableau de coordonnés
         isC.write(
-            str(coord[-1]) + "];\n" + declare1 + str(number*2) +
+            str(coord[-1]) + "];\n" + declare1 + str(number) +
             ";\n\n" + FOOTSTRING
         )   # fini le fichier
