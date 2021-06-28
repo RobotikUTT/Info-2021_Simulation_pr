@@ -28,6 +28,6 @@ robot_mouvment.init_robot(SIDE)     # Initialise le robot et les pinces
 
 nbrCoord = procedures.process_instruction()    # process_instruction()
 procedures.read_instruction(nbrCoord)
-procedures.convert_instruction(nbrCoord, SIDE)
+# procedures.convert_instruction(nbrCoord, SIDE)
 
 turtle.mainloop()

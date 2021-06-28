@@ -90,7 +90,7 @@ def calculer_pos_pinces():
 
 ###############################################################################
 
-def avancer(distance):
+def avancer(distance, prise=False):
     """
     Cette fonction prend en paramètre une distance en mm
     Il fait avancer l'objet Robotik de "distance" et associant les pinces aux
@@ -101,7 +101,8 @@ def avancer(distance):
     for i in range(distance):
         Robotik.forward(1)
         calculer_pos_pinces()
-        prise_gobi()
+        if prise:
+            prise_gobi()
 
 
 def reculer(distance):
@@ -126,14 +127,10 @@ def rotate(sens, valeur):
         for i in range(valeur):
             Robotik.left(1)
             calculer_pos_pinces()
-            # prise_gobi()
-            # On dit que le robot ne peut prendre un gobi en tournant
     elif sens == "right":
         for i in range(valeur):
             Robotik.right(1)
             calculer_pos_pinces()
-            # prise_gobi()
-            # On dit que le robot ne peut prendre un gobi en tournant
 
 
 def rotate_target(angle):
@@ -154,8 +151,6 @@ def rotate_target(angle):
             rotate(RGH, int(delta))
         else:
             rotate(LFT, int(360-delta))
-    else:
-        pass
 
 
 def goto(xTarget, yTarget, tt = Robotik):
@@ -171,25 +166,6 @@ def goto(xTarget, yTarget, tt = Robotik):
     xTarget = convert_CMOtoCTC(xTarget, "x")
     yTarget = convert_CMOtoCTC(yTarget, "y")
 
-    """
-    if tt == pince1:
-        if Robotik.xcor() > xTarget:
-            # The target is 'left' to Robotik
-            xTarget = xTarget - ENTRAX*ECHELLE
-        elif Robotik.xcor() < xTarget:
-            # The target is 'right' to Robotik
-            xTarget = xTarget + ENTRAX*ECHELLE
-    elif tt == pince2:
-        if Robotik.xcor() > yTarget:
-            # The target is 'left' to Robotik
-            yTarget = yTarget - ENTRAX*ECHELLE
-        elif Robotik.xcor() < yTarget:
-            # The target is 'right' to Robotik
-            yTarget = xTarget + ENTRAX*ECHELLE
-    else:
-        pass
-    """
-
     #Distanc absolue entre les coordonnés selon y
     distX = abs(xTarget - Robotik.xcor())
     #Distanc absolue entre les coordonnés selon y
@@ -198,18 +174,6 @@ def goto(xTarget, yTarget, tt = Robotik):
     # distXRed = (distX-((15*distX)/100))
     phi = int((180*math.atan(distY/distX))/math.pi)
     # phiRed = (180*(math.atan(distY/distXRed)))/math.pi
-
-    """
-    print("*")
-    print(xTarget)
-    print(yTarget)
-    print(Robotik.xcor())
-    print(Robotik.ycor())
-    print(distX)
-    print(distY)
-    print(phi)
-    print("*")
-    """
 
     if Robotik.xcor() > xTarget:
         # The target is 'left' to Robotik
@@ -288,7 +252,8 @@ def goto(xTarget, yTarget, tt = Robotik):
 
 ###############################################################################
 
-def prise_gobi():
+
+def prise_gobi(pince):
     """
     Cette fonction va vérifier en fonction de la position des pinces si un gobi
     est pris.
@@ -298,7 +263,8 @@ def prise_gobi():
     ETATP1 et ETATP2 aussi.
     """
     global STATE_PINCE1, STATE_PINCE2
-    if STATE_PINCE1 is None:
+    print(STATE_PINCE1, STATE_PINCE2)
+    if (STATE_PINCE1 is None) and pince == 1:
         prise = False
         compt = 0
         # on sort du while si compt = 24 ou si on est sur la position d'un gobi
@@ -330,7 +296,7 @@ def prise_gobi():
                 AQA
             )
             del LISTEGOBI[compt]
-    if STATE_PINCE2 is None:
+    if (STATE_PINCE2 is None) and pince == 2:
         prise = False
         compt = 0
         while not prise and compt < len(LISTEGOBI):
@@ -356,6 +322,7 @@ def prise_gobi():
             )
             del LISTEGOBI[compt]
 
+
 def poser_gobi(tt):
     """
     Cette fonction va définir la position des zones vertes et rouges pour
@@ -363,10 +330,10 @@ def poser_gobi(tt):
     pleines correspond avec celle des zones de dépots.
     """
     global STATE_PINCE1, STATE_PINCE2
-    if tt == pince1:
+    if tt == 1:
         pince1.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
-        pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
+            pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
         )
         LISTEGOBI.append((
             convert_CTCtoCMO(pince1.xcor(), "x"),
@@ -375,15 +342,17 @@ def poser_gobi(tt):
         )
         STATE_PINCE1 = None
         reculer(100)
-    if tt == pince2:
+    if tt == 2:
         pince2.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
-        pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
+            pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
         )
-        LISTEGOBI.append((
-            convert_CTCtoCMO(pince2.xcor(), "x"),
-            convert_CTCtoCMO(pince2.ycor(), "y"),
-            STATE_PINCE2[2], STATE_PINCE2[3])
+        LISTEGOBI.append(
+            (
+                convert_CTCtoCMO(pince2.xcor(), "x"),
+                convert_CTCtoCMO(pince2.ycor(), "y"),
+                STATE_PINCE2[2], STATE_PINCE2[3]
+            )
         )
         STATE_PINCE2 = None
         reculer(100)

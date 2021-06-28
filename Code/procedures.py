@@ -26,7 +26,10 @@ def process_instruction():
         invite = input("\nEnter x :")
         while invite != "Quit":
             # Ecrit dans le fichier
-            fl.write(invite+"\n"+input("\nEnter y :")+"\n")
+            fl.write(
+                invite+"\n"+input("\nEnter y :")+"\n"+
+                input("\nEnter action :")+"\n"
+            )
             invite = input("\nEnter x :")
             nbrGoto += 1
     return(nbrGoto)
@@ -40,13 +43,21 @@ def read_instruction(nbrGoto):
         coord = fl.readlines()
         print(coord)
         nbr = 0
-        while nbr < nbrGoto*2:
+        while nbr < nbrGoto*3:
             x = int(coord[nbr].removesuffix('\n'))
             y = int(coord[nbr+1].removesuffix('\n'))
-            nbr = nbr + 2
             print(x)
             print(y)
             robot_mouvment.goto(x, y)
+            inf = coord[nbr+2].removesuffix('\n')
+            numPince = int(inf[-1])
+            inf = inf[:-1]
+            if inf == 'Take':
+                robot_mouvment.prise_gobi(numPince)
+            elif inf == 'Put':
+                pass
+                # robot_mouvment.poser_gobi(numPince)
+            nbr = nbr + 3
 
 
 def calcul_bot_mouv(coord, side):
