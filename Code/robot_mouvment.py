@@ -263,7 +263,7 @@ def prise_gobi(pince):
     ETATP1 et ETATP2 aussi.
     """
     global STATE_PINCE1, STATE_PINCE2
-    print(STATE_PINCE1, STATE_PINCE2)
+    # print(STATE_PINCE1, STATE_PINCE2)
     if (STATE_PINCE1 is None) and pince == 1:
         prise = False
         compt = 0
@@ -323,14 +323,15 @@ def prise_gobi(pince):
             del LISTEGOBI[compt]
 
 
-def poser_gobi(tt):
+def poser_gobi(pince, back = False):
     """
     Cette fonction va définir la position des zones vertes et rouges pour
     déposer les gobies. La fonction va ensuite tester si la position des pinces
     pleines correspond avec celle des zones de dépots.
+    Back définit si le robot recule automatiquement après avoir laché le gobi
     """
     global STATE_PINCE1, STATE_PINCE2
-    if tt == 1:
+    if (STATE_PINCE1 is not None) and pince == 1:
         pince1.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
             pince1.xcor(), pince1.ycor(), STATE_PINCE1[2]
@@ -341,8 +342,9 @@ def poser_gobi(tt):
             STATE_PINCE1[2], STATE_PINCE1[3])
         )
         STATE_PINCE1 = None
-        reculer(100)
-    if tt == 2:
+        if back:
+            reculer(100)
+    if (STATE_PINCE2 is not None) and pince == 2:
         pince2.fillcolor(255, 255, 255)
         init_board.dessin_Cercle(
             pince2.xcor(), pince2.ycor(), STATE_PINCE2[2]
@@ -355,14 +357,15 @@ def poser_gobi(tt):
             )
         )
         STATE_PINCE2 = None
-        reculer(100)
+        if back:
+            reculer(100)
     else:
         pass
 
 ###############################################################################
 
 # Initialise le Robotik et ses pinces
-def init_robot(side):
+def init_robot(side = 'B'):
     """
     Une fonction à n'utiliser d'une fois pour inintialiser le robot et les
     pinces.

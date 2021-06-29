@@ -1,47 +1,48 @@
-"""
-Ce fichier convertit en fichier .c les intructions du fichier 'pyS.txt'.
-Ce fichier sera lu par la carte arduino.
-"""
-number = 3
-# Constantes pour l'écriture du fichier.c
-# nom du fichier : instructionList.h
-COMMENTSTRING = (
-    "/*\n * \\ file instructionList.h\n * \\created by the simulation\n*/"
+import os
+import turtle
+from constantes import (
+    LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
+    VALEUR_ROTATION_P1P2, convert_CMOtoCTC, convert_CTCtoCMO, ORIGINtBxB,
+    ORIGINtByB, ORIGINtBxJ, ORIGINtByJ
 )
-HEADSTRING = "#ifndef INSTRUCTIONLIST_H\n#define INSTRUCTIONLIST_H"
-FOOTSTRING = "#endif // INSTRUCTIONLIST_H"
-declare1 = "int nbrGoto = "
-declare2 = "int golist = ["
+import init_board as ib
+import robot_mouvment as rm
+import procedures
 
-with open('instructionList.h', 'w') as isC:
-    # Ecrit la tête du fichier
-    isC.write(COMMENTSTRING + "\n\n\n" + HEADSTRING + "\n\n" + declare2)
-    """
-    with open("pySim.txt", "r") as pyS:
-        for i in range(number*2-1):
-            x = pyS.readline()
-            isC.write(x.removesuffix('\n'))
-            isC.write(", ")
+os.system("cls")
 
-        # Ecrit la fin du fichier
-        x = pyS.readline()
-        isC.write(
-            x.removesuffix('\n') + "];\n" + declare1 + str(number*2) +
-            ";\n\n" + FOOTSTRING
-        )
-    """
-    # Lit l'ensemble du fichier dans un tableau pour chaque ligne
-    pyS = open('pySim.txt', 'r')
-    coord = pyS.readlines()
-    pyS.close()
-    # Retire les '\n' de chaque ligne et transforme en int
-    for i in range(len(coord)):
-        coord[i] = int(coord[i].removesuffix('\n'))
-    coord = tuple(coord)
+ib.drawboard()  # Crée le plateau de jeux
+# SIDE = input("Enter the side ('B' or 'J'): ")   # Choisit le côté de la table
+# while SIDE != 'B' and SIDE != 'J':
+    # SIDE = input("Enter the side ('B' or 'J'): ")
+rm.init_robot()     # Initialise le robot et les pinces
 
-    for xy in coord[:-1]:
-        isC.write(str(xy) + ", ")
-    isC.write(
-        str(coord[-1]) + "];\n" + declare1 + str(number*2) +
-        ";\n\n" + FOOTSTRING
-    )
+invite = input("\nAction (A##, B##, R##S, T##, P#, S#): ")
+while invite != 'Quit':
+    print(invite)
+    act = invite[0]
+    val = invite[1:]
+
+    if act == 'A':
+        rm.avancer(float(val))
+    elif act == 'R':
+        sens = val[-1]
+        val = int(val[:-1])
+        if sens == 'G':
+            rm.rotate('left', val)
+        else:
+            rm.rotate('right', val)
+    elif act == 'B':
+        rm.reculer(float(val))
+    elif act == 'T':
+        rm.rotate_target(int(val))
+    elif act == 'P':
+        rm.prise_gobi(int(val))
+    elif act == 'S':
+        rm.poser_gobi(int(val))
+    else:
+        print("\nNo")
+
+    invite = input("\nAction (A##, R##S, B##, T##): ")
+else:
+    turtle.mainloop()

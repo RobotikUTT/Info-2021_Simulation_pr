@@ -1,5 +1,4 @@
 import os
-from random import randint
 import turtle
 from constantes import (
     LISTEGOBI, GR, RD, AQA, BLE, YL, BLC, ECHELLE, LFT, RGH, ENTRAX,
@@ -17,7 +16,7 @@ est compilé pour la simulation """
 
 os.system("cls")
 
-init_board.drawboard()  # Crée le plateau de jeu
+init_board.drawboard()  # Crée le plateau de jeux
 
 # Choisit le côté de la table
 SIDE = input("Enter the side ('B' or 'J'): ")
